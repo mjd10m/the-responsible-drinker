@@ -36,7 +36,7 @@
     </div>
     <div>
       <div class="has-text-centered">
-        <button class="alreadyDrinking">Already Drinking?</button>
+        <button class="alreadyDrinking js-modal-trigger" data-target="modal-js-example">Already Drinking?</button>
       </div>
     </div>
     <div>
@@ -44,6 +44,54 @@
         <button class="startedtheparty">Started the Party?</button>
       </div>
     </div>
+  </div>
+
+
+  <!-- modal -->
+  <div id="modal-js-example" class="modal">
+    <div class="modal-background"></div>
+  
+    <div class="modal-content">
+      <div class="box">
+        <h3 class="is-size-3 has-text-centered is-family-secondary bacform">BAC Form: <br/></h3>
+        <!-- Your content -->
+        <div class="inputs columns">
+            <div class="control column">
+                <p class="pweight">Weight:</p>
+                <input class="input" id="weight" type="text" placeholder="Enter here">
+            </div>
+            <div class="control column">
+                <p class="pgender">Gender:</p>
+                <input class="input" id="gender" type="text" placeholder="Enter here">
+            </div>
+        </div>
+        <div class="inputs columns">
+            <div class="control column">
+                <p class="pmetabolism">Metabolism:</p>
+                <input class="input" id="metabolism" type="text" placeholder="Enter here">
+            </div>
+            <div class="control column">
+                <p class="pdrinkabv">Drink Abv:</p>
+                <input class="input" id="abv" type="text" placeholder="Enter here">
+            </div>
+        </div>
+        <div class="field is-grouped is-grouped-centered">
+            <p class="control">
+              <a class="button is-primary">
+                Submit
+              </a>
+            </p>
+            <p class="control">
+              <a class="button is-light">
+                Cancel
+              </a>
+            </p>
+          </div>
+
+      </div>
+    </div>
+  
+    <button class="modal-close is-large" aria-label="close"></button>
   </div>
   <script src="./assets/js/script.js"></script>
 </body>

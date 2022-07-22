@@ -141,3 +141,32 @@ header nav ul li a:hover {
     font-weight: bold;
     text-shadow: 1.5px 1.5px red;
 }
+
+.box{
+background-color: #950101;
+}
+.bacform {
+    color: #000000;
+    font-weight: bold;
+}
+
+.pweight {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+}
+.pgender {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+}
+.pmetabolism {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+}
+.pdrinkabv {
+    color: #000000;
+    font-size: 20px;
+    font-weight: bold;
+}
