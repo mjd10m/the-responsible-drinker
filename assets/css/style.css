@@ -72,59 +72,72 @@ header nav ul li a:hover {
     text-shadow: none;
 }
 
-.baccal{
+.bcal {
     margin-top: 20px;
     background-color: #FF0000;
     font-size: larger;
-    width: 15%;
-    margin-left: 42.5%;
+    width: 200px;
     border-radius: 15px;
     color: #000000;
+    font-weight: bold;
 }
-.alreadyDrinking{
+
+.bcal:hover {
+    margin-top: 20px;
+    background-color: blue;
+    font-size: 40px;
+    width: 200px;
+    border-radius: 15px;
+    color: #000000;
+    font-weight: bold;
+    text-shadow: 1.5px 1.5px red;
+}
+
+.alreadyDrinking {
     margin-top: 20px;
     background-color: #FF0000;
     font-size: larger;
-    width: 15%;
+    width: 200px;
+    border-radius: 15px;
+    color: #000000;
+    font-weight: bold;
     float: right;
     margin-right: 30%;
     border-radius: 15px;
     margin-bottom: 10px;
-    color: #000000;
 }
+.alreadyDrinking:hover{
+    margin-top: 20px;
+    background-color: blue;
+    font-size: 40px;
+    width: 200px;
+    border-radius: 15px;
+    color: #000000;
+    font-weight: bold;
+    text-shadow: 1.5px 1.5px red;
+}
+
 .startedtheparty{
     margin-top: 20px;
     background-color: #FF0000;
     font-size: larger;
-    width: 15%;
+    width: 200px;
+    border-radius: 15px;
+    color: #000000;
+    font-weight: bold;
     float: left;
     margin-left: 30%;
     border-radius: 15px;
     margin-bottom: 10px;
-    color: #000000;
-}
-
-.baccal:hover {
-    background: blue;
-    color: crimson;
-    border-radius: 15px;
-    text-shadow: none;
-}
-
-.alreadyDrinking:hover {
-    background: blue;
-    color: crimson;
-    border-radius: 15px;
-    text-shadow: none;
 }
 
 .startedtheparty:hover {
-    background: blue;
-    color: crimson;
-    border-radius: 15px;
-    text-shadow: none;
-}
-
-/* .table-container{
+    margin-top: 20px;
     background-color: blue;
-} */
+    font-size: 40px;
+    width: 200px;
+    border-radius: 15px;
+    color: #000000;
+    font-weight: bold;
+    text-shadow: 1.5px 1.5px red;
+}
