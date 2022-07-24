@@ -2,6 +2,8 @@
 var drinkList = []
 
 var timestamp = Date.now()
+
+//calculates BAC using the WideMark Formula
 function calculateBAC(weightInPounds, gender, totalTimeInHours) {
     if (gender == "Male"){
         var alcoholGrams = convertDrinkToGrams(drinkList)
@@ -13,7 +15,7 @@ function calculateBAC(weightInPounds, gender, totalTimeInHours) {
     roundedBac = Math.round(bac * 1000) / 1000
     console.log(roundedBac)
 }
-
+//converts abv and ounces to grams of alcohol
 function convertDrinkToGrams(drinkList) {
     var totalGramsOfAlcohol = 0
     for (i = 0; i < drinkList.length; i++) {
@@ -24,7 +26,7 @@ function convertDrinkToGrams(drinkList) {
     }
     return totalGramsOfAlcohol
 }
-
+//gets users inputs and calls BAC calculation
 function getInputs(event) {
     event.preventDefault();
     var userInfo = findUserInfo()
@@ -34,6 +36,7 @@ function getInputs(event) {
     localStorage.setItem("drinks", JSON.stringify(drinkList))
     calculateBAC(userInfo.weight, userInfo.gender, timeElapsed)
 }
+//adds additonal drink inputs when add drink button is clicked
 function addDrinkElement(event) {
     event.preventDefault();
     var addButton = document.querySelector("#add-drink")
@@ -45,6 +48,7 @@ function addDrinkElement(event) {
     buildlabelInputEl("Quantity", "quantity")
     modal.insertBefore(columnContainerEl, addButton)
 }
+//builds the html for the new drink inputs
 function buildlabelInputEl(text, id) {
     var inputEL = document.createElement("input")
     inputEL.type = "text"
@@ -67,13 +71,14 @@ function buildlabelInputEl(text, id) {
     columnEl.appendChild(controlEl)
     columnContainerEl.appendChild(columnEl)
 }
-
+//gets the users weight and gender
 function findUserInfo() {
     var weight = document.querySelector("#weight").value.trim()
     var gender = document.querySelector("#gender").value.trim()
     var userInfo = {weight: weight, gender: gender}
     return userInfo
 }
+//gets the drinks user has inputed
 function findUserDrinks() {
     debugger;
     var abvEl = document.querySelectorAll("#abv")
@@ -89,7 +94,7 @@ function findUserDrinks() {
     }
     return drinkList
 }
-
+//event lsiteners for submit button and add drink button within modal
 document.querySelector("#submit-modal").addEventListener("click", getInputs)
 document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
 
@@ -101,7 +106,7 @@ document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
 
 
 
-/*var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
+var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
 fetch(cocktailApiURL).then(function(response) {
     if (response.ok) {
         response.json().then(function(data) {
@@ -109,4 +114,4 @@ fetch(cocktailApiURL).then(function(response) {
             createResults()
         })
     }
-})*/
+})
