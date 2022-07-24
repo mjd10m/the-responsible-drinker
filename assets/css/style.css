@@ -1,3 +1,7 @@
 #column-main {
     border: 1px black solid;
 }
+img {
+    height: 200px;
+    width: 200px;
+}

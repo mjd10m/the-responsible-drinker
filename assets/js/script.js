@@ -101,10 +101,19 @@ document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
 
 
 function createResults(data) {
-    createIngredientTable(data)
+    debugger;
+    var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
+    for(i = 0 ; i < 3; i++){
+        var mainColumnEl = createTableEl("div","column is-6","")
+        createDrinkEl(data, mainColumnEl, i)
+        createInstructionsEl(data, mainColumnEl, i)
+        createIngredientTable(data, mainColumnEl, i)
+        mainContainerEl.appendChild(mainColumnEl)
+    }
+    document.querySelector("#test").appendChild(mainContainerEl)
 }
 
-function createIngredientTable(data) {
+function createIngredientTable(data, mainColumnEl, i) {
     var tableContainerEl = createTableEl("div","columns m-0","")
     var tableColumnEl = createTableEl("div", "column","")
     var tableEl = createTableEl("table","table","")
@@ -119,11 +128,11 @@ function createIngredientTable(data) {
     var tableBody = createTableEl("tbody","","")
     for (j = 17; j < 32; j++) {
 
-        var objArr = Object.values(data.drinks[4])
+        var objArr = Object.values(data.drinks[i])
         var ingredient = objArr[j]
         var measurement = objArr[j+15]
         if (ingredient === null) {
-
+            break
         } else {
         var tableBodyRow = createTableEl("tr","","")
         var tableBodyIngredient = createTableEl("td","",ingredient)
@@ -136,7 +145,27 @@ function createIngredientTable(data) {
     tableEl.appendChild(tableBody)
     tableColumnEl.appendChild(tableEl)
     tableContainerEl.appendChild(tableColumnEl)
-    document.querySelector("#test").appendChild(tableContainerEl)
+    mainColumnEl.appendChild(tableContainerEl)
+    return mainColumnEl
+}
+function createDrinkEl(data, mainColumnEl) {
+    var drinkContainerEl = createTableEl("div", "columns m-0","")
+    var drinkPicColumnEl = createTableEl("div","column is-3","")
+    var drinkPicEl = createTableEl("img","","")
+    drinkPicEl.src = data.drinks[i].strDrinkThumb
+    drinkPicColumnEl.appendChild(drinkPicEl)
+    var drinkNameColumnEl = createTableEl("div","column",data.drinks[i].strDrink)
+    drinkContainerEl.appendChild(drinkPicColumnEl)
+    drinkContainerEl.appendChild(drinkNameColumnEl)
+    mainColumnEl.appendChild(drinkContainerEl)
+    return mainColumnEl
+}
+function createInstructionsEl(data, mainColumnEl) {
+    var instructionsContainerEl = createTableEl("div","columns m-0", "")
+    var instructionsColumnEl = createTableEl("div", "column", data.drinks[i].strInstructions)
+    instructionsContainerEl.appendChild(instructionsColumnEl)
+    mainColumnEl.appendChild(instructionsContainerEl)
+    return mainColumnEl
 }
 
 function createTableEl(elementType, classList, text) {
@@ -154,6 +183,7 @@ fetch(cocktailApiURL).then(function(response) {
     if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
+            debugger;
             createResults(data)
         })
     }
