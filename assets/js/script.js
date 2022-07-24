@@ -102,8 +102,9 @@ document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
 
 function createResults(data) {
     debugger;
+    console.log(data.drinks.length)
     var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
-    for(i = 0 ; i < 3; i++){
+    for(i = 0 ; i < data.drinks.length; i++){
         var mainColumnEl = createTableEl("div","column is-6","")
         createDrinkEl(data, mainColumnEl, i)
         createInstructionsEl(data, mainColumnEl, i)
