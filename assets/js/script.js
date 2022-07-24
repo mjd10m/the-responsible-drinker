@@ -80,7 +80,6 @@ function findUserInfo() {
 }
 //gets the drinks user has inputed
 function findUserDrinks() {
-    debugger;
     var abvEl = document.querySelectorAll("#abv")
     var ouncesEl = document.querySelectorAll("#drinksize")
     var quantityEl = document.querySelectorAll("#quantity")
@@ -99,13 +98,11 @@ document.querySelector("#submit-modal").addEventListener("click", getInputs)
 document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
 
 
-
+//takes data from fetch request and adds to webpage
 function createResults(data) {
-    debugger;
-    console.log(data.drinks.length)
     var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
     for(i = 0 ; i < data.drinks.length; i++){
-        var mainColumnEl = createTableEl("div","column is-6","")
+        var mainColumnEl = createTableEl("div","column is-4","")
         createDrinkEl(data, mainColumnEl, i)
         createInstructionsEl(data, mainColumnEl, i)
         createIngredientTable(data, mainColumnEl, i)
@@ -113,7 +110,7 @@ function createResults(data) {
     }
     document.querySelector("#test").appendChild(mainContainerEl)
 }
-
+//creates the ingredient table HTML
 function createIngredientTable(data, mainColumnEl, i) {
     var tableContainerEl = createTableEl("div","columns m-0","")
     var tableColumnEl = createTableEl("div", "column","")
@@ -149,9 +146,10 @@ function createIngredientTable(data, mainColumnEl, i) {
     mainColumnEl.appendChild(tableContainerEl)
     return mainColumnEl
 }
+//creates the drink name and picture html
 function createDrinkEl(data, mainColumnEl) {
     var drinkContainerEl = createTableEl("div", "columns m-0","")
-    var drinkPicColumnEl = createTableEl("div","column is-3","")
+    var drinkPicColumnEl = createTableEl("div","column is-5","")
     var drinkPicEl = createTableEl("img","","")
     drinkPicEl.src = data.drinks[i].strDrinkThumb
     drinkPicColumnEl.appendChild(drinkPicEl)
@@ -161,6 +159,7 @@ function createDrinkEl(data, mainColumnEl) {
     mainColumnEl.appendChild(drinkContainerEl)
     return mainColumnEl
 }
+//creates the instructions html
 function createInstructionsEl(data, mainColumnEl) {
     var instructionsContainerEl = createTableEl("div","columns m-0", "")
     var instructionsColumnEl = createTableEl("div", "column", data.drinks[i].strInstructions)
@@ -168,7 +167,7 @@ function createInstructionsEl(data, mainColumnEl) {
     mainColumnEl.appendChild(instructionsContainerEl)
     return mainColumnEl
 }
-
+//base function to crete an element and assign class and innerHTML
 function createTableEl(elementType, classList, text) {
     var element = document.createElement(elementType)
     element.classList = classList
@@ -178,14 +177,16 @@ function createTableEl(elementType, classList, text) {
 
 
 
-
-var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
+//gets the results from the cocktail search
+function cocktailNameSearch(searchedDrink) {
+var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
 fetch(cocktailApiURL).then(function(response) {
     if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
-            debugger;
             createResults(data)
         })
     }
 })
+}
+
