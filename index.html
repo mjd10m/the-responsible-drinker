@@ -9,21 +9,108 @@
     <title>The Responsible Drinker</title>
 </head>
 <body>
-    <form>
-        <label for="weight">Weight in Pounds:</label><br>
-        <input type="text" id="weight" name="weight"><br>
-        <label for="gender">Gender:</label><br>
-        <select id="gender" name="gender">
-            <option value=""></option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-        </select><br>
-        <label for="abv">ABV of Drink</label><br>
-        <input type="text" id="abv" name="abv"><br>
-        <label for="drinksize">Drink Size in Ounces</label><br>
-        <input type="text" id="drinksize" name="drinksize"><br>
-        <button type="submit">Submit</button>
-      </form>
+    <!--<div class="container is-fluid">
+        <div class="columns is-justify-content-center">
+                <div class="column is-4 mt-5" id="column-main">
+                <div id="user-inputs" class="field ">
+                    <label for="weight" class="label">Weight in Pounds:</label>
+                    <div class="control">
+                        <input type="text" id="weight" name="weight" class="input">
+                    </div>
+                    <label for="gender" class="label pt-1">Gender:</label>
+                    <div class="control">
+                        <select id="gender" name="gender" class="select">
+                            <option value=""></option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                        </select>
+                    </div>
+                    <label for="abv" class="label pt-1">ABV of Drink</label>
+                    <div class="control">
+                        <input type="text" id="abv" name="abv" class="input">
+                    </div>
+                    <label for="drinksize" class="label pt-1">Drink Size in Ounces</label>
+                    <div class="control">
+                        <input type="text" id="drinksize" name="drinksize" class="input">
+                    </div>
+                    <label for="time" class="label pt-1">Time since first drink</label>
+                    <div class="control">
+                        <input type="text" id="time" name="time" class="input">
+                    </div>
+                    <div class="control pt-1">
+                        <button class="button is-link" id="submit">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="modal is-active">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head has-background-danger-dark">
+            <p class="modal-card-title">Enter your information below</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body has-background-success-dark">
+            <div id="user-inputs-modal" class="field ">
+                <div class="columns">
+                    <div class="column is-5">
+                        <label for="weight" class="label">Weight in Pounds:</label>
+                        <div class="control">
+                            <input type="text" id="weight" name="weight" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <label for="gender" class="label">Gender:</label>
+                        <div class="control">
+                            <select id="gender" name="gender" class="select">
+                                <option value=""></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-5">
+                        <label for="time" class="label">Time since first drink</label>
+                        <div class="control">
+                            <input type="text" id="time" name="time" class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-4">
+                        <label for="abv" class="label">ABV</label>
+                        <div class="control">
+                            <input type="text" id="abv" name="abv" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <label for="drinksize" class="label">Ounces</label>
+                        <div class="control">
+                            <input type="text" id="drinksize" name="drinksize" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <label for="quantity" class="label">Quantity</label>
+                        <div class="control">
+                            <input type="text" id="quantity" name="quantity" class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns" id="add-drink">
+                    <div class="column">
+                        <button class="button is-link">Add Drink</button>
+                    </div> 
+                </div>
+            </div>
+          </section>
+          <footer class="modal-card-foot has-background-success-dark">
+            <button class="button is-link" id="submit-modal">Submit</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
+      </div>
     
     <script src="./assets/js/script.js"></script>
 </body>
