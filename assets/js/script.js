@@ -100,8 +100,51 @@ document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
 
 
 
+function createResults(data) {
+    createIngredientTable(data)
+}
 
+function createIngredientTable(data) {
+    var tableContainerEl = createTableEl("div","columns m-0","")
+    var tableColumnEl = createTableEl("div", "column","")
+    var tableEl = createTableEl("table","table","")
+    var tableHead = createTableEl("thead","","")
+    var tableHeadRow = createTableEl("tr","","")
+    var tableHeadText1 = createTableEl("th","","Ingredient")
+    var tableHeadText2 = createTableEl("th","","Measurement")
+    tableHeadRow.appendChild(tableHeadText1)
+    tableHeadRow.appendChild(tableHeadText2)
+    tableHead.appendChild(tableHeadRow)
+    tableEl.appendChild(tableHead)
+    var tableBody = createTableEl("tbody","","")
+    for (j = 17; j < 32; j++) {
 
+        var objArr = Object.values(data.drinks[4])
+        var ingredient = objArr[j]
+        var measurement = objArr[j+15]
+        if (ingredient === null) {
+
+        } else {
+        var tableBodyRow = createTableEl("tr","","")
+        var tableBodyIngredient = createTableEl("td","",ingredient)
+        var tableBodyMeasure = createTableEl("td","",measurement)
+        tableBodyRow.appendChild(tableBodyIngredient)
+        tableBodyRow.appendChild(tableBodyMeasure)
+        tableBody.appendChild(tableBodyRow)
+        }
+    }
+    tableEl.appendChild(tableBody)
+    tableColumnEl.appendChild(tableEl)
+    tableContainerEl.appendChild(tableColumnEl)
+    document.querySelector("#test").appendChild(tableContainerEl)
+}
+
+function createTableEl(elementType, classList, text) {
+    var element = document.createElement(elementType)
+    element.classList = classList
+    element.innerHTML = text
+    return element
+}
 
 
 
@@ -111,7 +154,7 @@ fetch(cocktailApiURL).then(function(response) {
     if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
-            createResults()
+            createResults(data)
         })
     }
 })
