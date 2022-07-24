@@ -16,12 +16,9 @@ header {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    position: sticky;
-    position: -webkit-sticky;
     top: 0;
     background-image: url("../images/images.jpg");
     background-attachment: fixed;
-    background-position: 80%;
     z-index: 9999;
 }
   
@@ -46,7 +43,7 @@ header a {
 }
   
 header nav {
-    margin: 7px 0;
+    margin: 30px 0;
 }
   
 header nav ul {
@@ -145,57 +142,23 @@ header nav ul li a:hover {
 .box{
 background-color: #950101;
 }
-.bacform {
-    color: #000000;
-    font-weight: bold;
+
+#column-main {
+    border: 1px black solid;
+}
+img {
+    height: 200px;
+    width: 200px;
 }
 
-.pweight {
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-}
-.pgender {
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-}
-.pmetabolism {
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-}
-.pdrinkabv {
-    color: #000000;
-    font-size: 20px;
-    font-weight: bold;
-}
-.input {
-    background-color: lightblue;
+.table-container {
+    border-bottom: 4px solid #000000;
 }
 
-.cancel{
-    background-color: #FF0000;
-    font-weight: bold;
-    font-size:large;
-    color: #000000;
+.modal-card-title{
+    font-size: 35px;
+    color:#000000;
 }
-.submit{
-    background-color: #FF0000;
-    font-weight: bold;
-    font-size:large;
-    color: #000000;
-}
-
-.cancel:hover{
-    background-color: blue;
-    font-weight: bolder;
-    font-size:large;
-    color: #000000;
-}
-.submit:hover{
-    background-color: blue;
-    font-weight: bolder;
-    font-size:large;
-    color: #000000;
+.modal-card-body {
+    background-color:#FF0000;
 }
