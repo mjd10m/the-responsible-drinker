@@ -94,8 +94,17 @@ function findUserDrinks() {
     return drinkList
 }
 //event lsiteners for submit button and add drink button within modal
-document.querySelector("#submit-modal").addEventListener("click", getInputs)
-document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
+if(document.querySelector("#submit-modal") === null) {
+
+} else {
+  document.querySelector("#submit-modal").addEventListener("click", getInputs)
+}
+
+if(document.querySelector("#add-drink") === null) {
+
+} else {
+  document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
+}
 
 
 
@@ -185,3 +194,16 @@ fetch(cocktailApiURL).then(function(response) {
         })
     }
 })
+
+
+var alreadyDrinkingBtn = document.getElementById('drinking')
+alreadyDrinkingBtn.addEventListener('click', alreadydrinking);
+function alreadydrinking() {
+  document.getElementById('alreadydrinkingform').classList.add('is-active')
+}
+
+var formClose = document.getElementById('formclose')
+formClose.addEventListener('click', alreadydrinkingclose)
+function alreadydrinkingclose() {
+  document.getElementById('alreadydrinkingform').classList.remove('is-active')
+}
