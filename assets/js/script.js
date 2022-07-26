@@ -338,11 +338,10 @@ function alreadyDrinking(event) {
 }
 //adds additonal drink inputs when add drink button is clicked
 function addDrinkElement(event) {
-    debugger;
     event.preventDefault();
     var elClicked = event.target
-    var addButton = document.querySelector("#add-btn")
-    var modal = document.querySelector("#user-inputs-modal")
+    var addButton = elClicked.closest("#add-btn")
+    var modal = elClicked.closest("#user-inputs-modal")
     columnContainerEl = document.createElement("div")
     columnContainerEl.classList = "columns"
     var parentEl = elClicked.parentElement.id
@@ -508,6 +507,7 @@ fetch(cocktailApiURL).then(function(response) {
         })
     }
 })
+
 }
 function trackDrinking(event) {
     event.preventDefault();
@@ -518,7 +518,6 @@ function trackDrinking(event) {
 
 }
 function trackDrinkingDrinkAdd(event) {
-    debugger;
     event.preventDefault
     var userInfo = JSON.parse(localStorage.getItem("user"));
     var currentTime = Date.now() 
@@ -538,7 +537,7 @@ function trackDrinkingDrinkAdd(event) {
 
 }
 function loadPage() {
-    savedDrinkList = JSON.parse(localStorage.getItem("drinks"))
+    savedDrinkList = JSON.parse(localStorage.getItem("drinks")) 
 }
 loadPage()
 
@@ -548,11 +547,13 @@ if(document.querySelector("#submit-modal") === null) {
 } else {
   document.querySelector("#submit-modal").addEventListener("click", alreadyDrinking)
 }
-
 if(document.querySelector("#add-drink") === null) {
     
 } else {
-  document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
+  (document.querySelectorAll("#add-drink") || []).forEach(($close) => {
+    
+    $close.addEventListener("click", addDrinkElement)
+})
 }
 
 if(document.querySelector("#submit-modal-tracking") === null) {
@@ -566,3 +567,57 @@ if(document.querySelector("#submit-modal-tracking-adddrink") === null) {
 } else {
   document.querySelector("#submit-modal-tracking-adddrink").addEventListener("click", trackDrinkingDrinkAdd)
 }
+
+if(document.querySelector("#drinking") === null) {
+    
+} else {
+  document.querySelector("#drinking").addEventListener("click", trackDrinkingDrinkAdd)
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Functions to open and close a modal
+    function openModal($el) {
+      $el.classList.add('is-active');
+    }
+  
+    function closeModal($el) {
+      $el.classList.remove('is-active');
+    }
+  
+    function closeAllModals() {
+      (document.querySelectorAll('.modal') || []).forEach(($modal) => {
+        closeModal($modal);
+      });
+    }
+  
+    // Add a click event on buttons to open a specific modal
+  
+    (document.querySelectorAll('.js-modal-trigger') || []).forEach(($trigger) => {
+      const modal = $trigger.dataset.modal;
+      const $target = document.getElementById(modal);
+  
+      $trigger.addEventListener('click', () => {
+        openModal($target);
+      });
+    });
+  
+    // Add a click event on various child elements to close the parent modal
+    (document.querySelectorAll('.modal-background, .modal-close, .modal-card-head .delete, .modal-card-foot .button') || []).forEach(($close) => {
+        const $target = $close.closest('.modal');
+  
+      $close.addEventListener('click', () => {
+        closeModal($target);
+      });
+    });
+  
+    // Add a keyboard event to close all modals
+    document.addEventListener('keydown', (event) => {
+      const e = event || window.event;
+  
+      if (e.keyCode === 27) { // Escape key
+        closeAllModals();
+    }
+});
+});
+var test = document.querySelectorAll('.js-modal-trigger')
+console.log(test)
