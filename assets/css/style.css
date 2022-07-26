@@ -55,13 +55,6 @@ body {
     text-shadow: 1.5px 1.5px var(--tertiary-color);
 }
 
-#column-main {
-    border: 1px var(--secondary-color) solid;
-}
-img {
-    height: 200px;
-    width: 200px;
-}
 
 .container {
     border-bottom: 4px solid var(--secondary-color);
