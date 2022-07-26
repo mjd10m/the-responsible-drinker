@@ -299,6 +299,7 @@
 
 
 var savedDrinkList = []
+var bacValueEl = document.querySelector("#current-bac")
 
 
 //calculates BAC using the WideMark Formula
@@ -312,6 +313,8 @@ function calculateBAC(weightInPounds, gender, totalTimeInHours, drinkList) {
     }
     roundedBac = Math.round(bac * 1000) / 1000
     console.log(roundedBac)
+    debugger;
+    bacValueEl.innerHTML = roundedBac
 }
 //converts abv and ounces to grams of alcohol
 function convertDrinkToGrams(drinkList) {
@@ -335,6 +338,12 @@ function alreadyDrinking(event) {
     drinkList = findUserDrinks(parentElId, drinkList)
     //localStorage.setItem("drinks", JSON.stringify(drinkList))
     calculateBAC(userInfo.weight, userInfo.gender, timeElapsed, drinkList)
+    bacValueEl.classList.remove("is-sr-only")
+    document.querySelector("#already-drinking-btn").classList.add("is-sr-only")
+    document.querySelector("#start-drinking-btn").classList.add("is-sr-only")
+    document.querySelector("#search-again-btn").classList.remove("is-sr-only")
+    document.querySelector("#home-btn").classList.remove("is-sr-only")
+
 }
 //adds additonal drink inputs when add drink button is clicked
 function addDrinkElement(event) {
@@ -346,19 +355,36 @@ function addDrinkElement(event) {
     columnContainerEl.classList = "columns"
     var parentEl = elClicked.parentElement.id
     if (parentEl === "tracking") {
-        buildlabelInputEl("ABV", "abv-tracking")
-        buildlabelInputEl("Ounces", "drinksize-tracking")
-        buildlabelInputEl("Quantity", "quantity-tracking")
+        buildlabelInputEl("ABV", "abv-tracking", "column is-4")
+        buildlabelInputEl("Ounces", "drinksize-tracking", "column is-4")
+        buildlabelInputEl("Quantity", "quantity-tracking", "column is-3")
+        var deleteBtn = document.createElement("button")
+        deleteBtn.classList = "delete"
+        deleteBtn.ariaLabel = "close"
+        deleteBtn.id = "remove-drink-item"
+        var columnEl = document.createElement("div")
+        columnEl.classList = "column is-1"
+        columnEl.appendChild(deleteBtn)
+        columnContainerEl.appendChild(columnEl)
         modal.insertBefore(columnContainerEl, addButton)
     } else {
-        buildlabelInputEl("ABV", "abv")
-        buildlabelInputEl("Ounces", "drinksize")
-        buildlabelInputEl("Quantity", "quantity")
-    modal.insertBefore(columnContainerEl, addButton)
+        buildlabelInputEl("ABV", "abv", "column is-4")
+        buildlabelInputEl("Ounces", "drinksize", "column is-4")
+        buildlabelInputEl("Quantity", "quantity", "column is-3")
+        var deleteBtn = document.createElement("button")
+        deleteBtn.classList = "delete"
+        deleteBtn.ariaLabel = "close"
+        deleteBtn.id = "remove-drink-item"
+        var columnEl = document.createElement("div")
+        columnEl.classList =  "column is-1"
+        columnEl.appendChild(deleteBtn)
+        columnContainerEl.appendChild(columnEl)
+        modal.insertBefore(columnContainerEl, addButton)
     }
+    findDrinkRemoveBtn()
 }
 //builds the html for the new drink inputs
-function buildlabelInputEl(text, id) {
+function buildlabelInputEl(text, id, classCont) {
     var inputEL = document.createElement("input")
     inputEL.type = "text"
     inputEL.id = id
@@ -373,9 +399,8 @@ function buildlabelInputEl(text, id) {
     labelEl.for = id
     labelEl.classList = "label"
     labelEl.innerHTML = text
-
     var columnEl = document.createElement("div")
-    columnEl.classList = "column is-4"
+    columnEl.classList =  classCont
     columnEl.appendChild(labelEl)
     columnEl.appendChild(controlEl)
     columnContainerEl.appendChild(columnEl)
@@ -536,6 +561,10 @@ function trackDrinkingDrinkAdd(event) {
     
 
 }
+function removeAddDrinkEl(event) {
+    var removeEl = event.target.closest(".columns")
+    removeEl.remove()
+}
 function loadPage() {
     savedDrinkList = JSON.parse(localStorage.getItem("drinks")) 
 }
@@ -573,6 +602,25 @@ if(document.querySelector("#drinking") === null) {
 } else {
   document.querySelector("#drinking").addEventListener("click", trackDrinkingDrinkAdd)
 }
+
+function findDrinkRemoveBtn() {
+    if(document.querySelector("#remove-drink-item") === null) {
+    
+    } else {
+        (document.querySelectorAll("#remove-drink-item") || []).forEach(($removeBtn) => {
+    
+        $removeBtn.addEventListener("click", removeAddDrinkEl)
+        })
+    }
+}
+if(document.querySelector("#home-btn") === null) {
+    
+} else {
+  document.querySelector("#home-btn").addEventListener("click", function() {
+    location.reload()
+  })
+}
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // Functions to open and close a modal

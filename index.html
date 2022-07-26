@@ -37,15 +37,19 @@
            </div>
            <div class="columns">
             <div class=" column has-text-centered">
-              <div> BAC goes here</div>
+              <div class="is-sr-only" id="current-bac"> BAC goes here</div>
             </div>
            </div>
            <div class="columns">
             <div class="column has-text-centered">
-              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-already-drinking">Already Drinking?</button>
+              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-already-drinking" id="already-drinking-btn">Already Drinking?</button>
+              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-starting-add-drink" id="add-drink-btn">Add Drink</button>
+              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-already-drinking" id="search-again-btn">Search Again</button>
             </div>
             <div class="column has-text-centered">
-              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold startedtheparty js-modal-trigger" data-modal="modal-starting-drinking" id="starting">Started the Party?</button>
+              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold startedtheparty js-modal-trigger" data-modal="modal-starting-drinking" id="start-drinking-btn">Started the Party?</button>
+              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold startedtheparty is-sr-only" data-modal="" id="reset-app-btn">Reset</button>
+              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold startedtheparty is-sr-only" data-modal="" id="home-btn">Home</button>
             </div>
            </div>
           </div>
@@ -276,7 +280,7 @@
         </div>-->
 
         <!--add drink modal for start drinking-->
-        <div class="modal" id="">
+        <div class="modal" id="modal-starting-add-drink">
             <div class="modal-background"></div>
             <div class="modal-card">
               <header class="modal-card-head has-background-danger-dark">
