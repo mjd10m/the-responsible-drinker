@@ -1,42 +1,9 @@
+var drinkList = []
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var savedDrinkList = []
-
+var timestamp = Date.now()
 
 //calculates BAC using the WideMark Formula
-function calculateBAC(weightInPounds, gender, totalTimeInHours, drinkList) {
+function calculateBAC(weightInPounds, gender, totalTimeInHours) {
     if (gender == "Male"){
         var alcoholGrams = convertDrinkToGrams(drinkList)
         bac = ((alcoholGrams/((weightInPounds * 454) * .68)) * 100) - (totalTimeInHours * .015) 
@@ -59,38 +26,26 @@ function convertDrinkToGrams(drinkList) {
     return totalGramsOfAlcohol
 }
 //gets users inputs and calls BAC calculation
-function alreadyDrinking(event) {
-    var drinkList = []
+function getInputs(event) {
     event.preventDefault();
-    var userInfo = findUserInfo("#weight", "#gender")
+    var userInfo = findUserInfo()
     var timeElapsed = document.querySelector("#time").value.trim()
-    //localStorage.setItem("user", JSON.stringify(userInfo))
-    var parentElId = event.target.parentElement.id
-    drinkList = findUserDrinks(parentElId, drinkList)
-    //localStorage.setItem("drinks", JSON.stringify(drinkList))
-    calculateBAC(userInfo.weight, userInfo.gender, timeElapsed, drinkList)
+    localStorage.setItem("user", JSON.stringify(userInfo))
+    drinkList = findUserDrinks()
+    localStorage.setItem("drinks", JSON.stringify(drinkList))
+    calculateBAC(userInfo.weight, userInfo.gender, timeElapsed)
 }
 //adds additonal drink inputs when add drink button is clicked
 function addDrinkElement(event) {
-    debugger;
     event.preventDefault();
-    var elClicked = event.target
-    var addButton = document.querySelector("#add-btn")
+    var addButton = document.querySelector("#add-drink")
     var modal = document.querySelector("#user-inputs-modal")
     columnContainerEl = document.createElement("div")
     columnContainerEl.classList = "columns"
-    var parentEl = elClicked.parentElement.id
-    if (parentEl === "tracking") {
-        buildlabelInputEl("ABV", "abv-tracking")
-        buildlabelInputEl("Ounces", "drinksize-tracking")
-        buildlabelInputEl("Quantity", "quantity-tracking")
-        modal.insertBefore(columnContainerEl, addButton)
-    } else {
-        buildlabelInputEl("ABV", "abv")
-        buildlabelInputEl("Ounces", "drinksize")
-        buildlabelInputEl("Quantity", "quantity")
+    buildlabelInputEl("ABV", "abv")
+    buildlabelInputEl("Ounces", "drinksize")
+    buildlabelInputEl("Quantity", "quantity")
     modal.insertBefore(columnContainerEl, addButton)
-    }
 }
 //builds the html for the new drink inputs
 function buildlabelInputEl(text, id) {
@@ -116,47 +71,49 @@ function buildlabelInputEl(text, id) {
     columnContainerEl.appendChild(columnEl)
 }
 //gets the users weight and gender
-function findUserInfo(weightId, genderId) {
-    var weight = document.querySelector(weightId).value.trim()
-    var gender = document.querySelector(genderId).value.trim()
+function findUserInfo() {
+    var weight = document.querySelector("#weight").value.trim()
+    var gender = document.querySelector("#gender").value.trim()
     var userInfo = {weight: weight, gender: gender}
     return userInfo
 }
 //gets the drinks user has inputed
-function findUserDrinks(id, drinkList) {
-    if (id === "tracking"){
-    var abvEl = document.querySelectorAll("#abv-tracking")
-    var ouncesEl = document.querySelectorAll("#drinksize-tracking")
-    var quantityEl = document.querySelectorAll("#quantity-tracking")
-        for (i=0; i < abvEl.length; i++ ) {
-            var drink = {}
-            var abvDrink = abvEl[i].value.trim();
-            var ouncesDrink = ouncesEl[i].value.trim();
-            var quantityDrink = quantityEl[i].value.trim();
-            drink = {abv: abvDrink, ounces:ouncesDrink, quantity: quantityDrink}
-            drinkList.push(drink)
-        }
-    } else {
-        var abvEl = document.querySelectorAll("#abv")
+function findUserDrinks() {
+    debugger;
+    var abvEl = document.querySelectorAll("#abv")
     var ouncesEl = document.querySelectorAll("#drinksize")
     var quantityEl = document.querySelectorAll("#quantity")
-        for (i=0; i < abvEl.length; i++ ) {
-            var drink = {}
-            var abvDrink = abvEl[i].value.trim();
-            var ouncesDrink = ouncesEl[i].value.trim();
-            var quantityDrink = quantityEl[i].value.trim();
-            drink = {abv: abvDrink, ounces:ouncesDrink, quantity: quantityDrink}
-            drinkList.push(drink)
-        }
+    for (i=0; i < abvEl.length; i++ ) {
+        var drink = {}
+        var abvDrink = abvEl[i].value.trim();
+        var ouncesDrink = ouncesEl[i].value.trim();
+        var quantityDrink = quantityEl[i].value.trim();
+        drink = {abv: abvDrink, ounces:ouncesDrink, quantity: quantityDrink}
+        drinkList.push(drink)
     }
     return drinkList
 }
+//event lsiteners for submit button and add drink button within modal
+if(document.querySelector("#submit-modal") === null) {
 
-//takes data from fetch request and adds to webpage
+} else {
+  document.querySelector("#submit-modal").addEventListener("click", getInputs)
+}
+
+if(document.querySelector("#add-drink") === null) {
+
+} else {
+  document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
+}
+
+
+
 function createResults(data) {
+    debugger;
+    console.log(data.drinks.length)
     var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
     for(i = 0 ; i < data.drinks.length; i++){
-        var mainColumnEl = createTableEl("div","column is-4","")
+        var mainColumnEl = createTableEl("div","column is-6","")
         createDrinkEl(data, mainColumnEl, i)
         createInstructionsEl(data, mainColumnEl, i)
         createIngredientTable(data, mainColumnEl, i)
@@ -164,7 +121,7 @@ function createResults(data) {
     }
     document.querySelector("#test").appendChild(mainContainerEl)
 }
-//creates the ingredient table HTML
+
 function createIngredientTable(data, mainColumnEl, i) {
     var tableContainerEl = createTableEl("div","columns m-0","")
     var tableColumnEl = createTableEl("div", "column","")
@@ -200,10 +157,9 @@ function createIngredientTable(data, mainColumnEl, i) {
     mainColumnEl.appendChild(tableContainerEl)
     return mainColumnEl
 }
-//creates the drink name and picture html
 function createDrinkEl(data, mainColumnEl) {
     var drinkContainerEl = createTableEl("div", "columns m-0","")
-    var drinkPicColumnEl = createTableEl("div","column is-5","")
+    var drinkPicColumnEl = createTableEl("div","column is-3","")
     var drinkPicEl = createTableEl("img","","")
     drinkPicEl.src = data.drinks[i].strDrinkThumb
     drinkPicColumnEl.appendChild(drinkPicEl)
@@ -213,7 +169,6 @@ function createDrinkEl(data, mainColumnEl) {
     mainColumnEl.appendChild(drinkContainerEl)
     return mainColumnEl
 }
-//creates the instructions html
 function createInstructionsEl(data, mainColumnEl) {
     var instructionsContainerEl = createTableEl("div","columns m-0", "")
     var instructionsColumnEl = createTableEl("div", "column", data.drinks[i].strInstructions)
@@ -221,82 +176,34 @@ function createInstructionsEl(data, mainColumnEl) {
     mainColumnEl.appendChild(instructionsContainerEl)
     return mainColumnEl
 }
-//base function to crete an element and assign class and innerHTML
+
 function createTableEl(elementType, classList, text) {
     var element = document.createElement(elementType)
     element.classList = classList
     element.innerHTML = text
     return element
-}3
+}
 
-
-
-//gets the results from the cocktail search
-function cocktailNameSearch(searchedDrink) {
-var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
+var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita"
 fetch(cocktailApiURL).then(function(response) {
     if (response.ok) {
         response.json().then(function(data) {
             console.log(data);
+            debugger;
             createResults(data)
         })
     }
 })
-}
-function trackDrinking(event) {
-    event.preventDefault();
-    var userInfo = findUserInfo("#weight-tracking", "#gender-tracking")
-    localStorage.setItem("user", JSON.stringify(userInfo))
-    var timestamp = Date.now()
-    localStorage.setItem("time", JSON.stringify(timestamp))
 
-}
-function trackDrinkingDrinkAdd(event) {
-    debugger;
-    event.preventDefault
-    var userInfo = JSON.parse(localStorage.getItem("user"));
-    var currentTime = Date.now() 
-    var storedTime = JSON.parse(localStorage.getItem("time"));
-    var unixElapsed = (currentTime - storedTime) / 1000
-    var hours = Math.floor(unixElapsed/3600) % 24
-    var minutes = Math.floor(unixElapsed / 60) % 60;
-    var seconds = unixElapsed % 60;
-    var timeElapsed = hours + (minutes / 60) + (seconds / 3600)
-    console.log(timeElapsed)
-    var parentElId = event.target.parentElement.id
-    savedDrinkList = findUserDrinks(parentElId, savedDrinkList)
-    localStorage.setItem("drinks", JSON.stringify(savedDrinkList))
-    calculateBAC(userInfo.weight, userInfo.gender, timeElapsed, savedDrinkList)
 
-    
-
-}
-function loadPage() {
-    savedDrinkList = JSON.parse(localStorage.getItem("drinks"))
-}
-loadPage()
-
-//event lsiteners for submit button and add drink button within modal
-if(document.querySelector("#submit-modal") === null) {
-    
-} else {
-  document.querySelector("#submit-modal").addEventListener("click", alreadyDrinking)
+var alreadyDrinkingBtn = document.getElementById('drinking')
+alreadyDrinkingBtn.addEventListener('click', alreadydrinking);
+function alreadydrinking() {
+  document.getElementById('alreadydrinkingform').classList.add('is-active')
 }
 
-if(document.querySelector("#add-drink") === null) {
-    
-} else {
-  document.querySelector("#add-drink").addEventListener("click", addDrinkElement)
-}
-
-if(document.querySelector("#submit-modal-tracking") === null) {
-
-} else {
-  document.querySelector("#submit-modal-tracking").addEventListener("click", trackDrinking)
-}
-
-if(document.querySelector("#submit-modal-tracking-adddrink") === null) {
-    
-} else {
-  document.querySelector("#submit-modal-tracking-adddrink").addEventListener("click", trackDrinkingDrinkAdd)
+var formClose = document.getElementById('formclose')
+formClose.addEventListener('click', alreadydrinkingclose)
+function alreadydrinkingclose() {
+  document.getElementById('alreadydrinkingform').classList.remove('is-active')
 }
