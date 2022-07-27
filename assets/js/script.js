@@ -302,6 +302,7 @@ var savedDrinkList = []
 var bacValueEl = document.querySelector("#current-bac")
 
 
+
 //calculates BAC using the WideMark Formula
 function calculateBAC(weightInPounds, gender, totalTimeInHours, drinkList) {
     if (gender == "Male"){
@@ -313,7 +314,6 @@ function calculateBAC(weightInPounds, gender, totalTimeInHours, drinkList) {
     }
     roundedBac = Math.round(bac * 1000) / 1000
     console.log(roundedBac)
-    debugger;
     bacValueEl.innerHTML = roundedBac
 }
 //converts abv and ounces to grams of alcohol
@@ -443,7 +443,7 @@ function findUserDrinks(id, drinkList) {
 }
 
 //takes data from fetch request and adds to webpage
-function createResults(data) {
+/*function createResults(data) {
     var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
     for(i = 0 ; i < data.drinks.length; i++){
         var mainColumnEl = createTableEl("div","column is-4","")
@@ -451,9 +451,12 @@ function createResults(data) {
         createInstructionsEl(data, mainColumnEl, i)
         createIngredientTable(data, mainColumnEl, i)
         mainContainerEl.appendChild(mainColumnEl)
+
     }
-    document.querySelector("#test").appendChild(mainContainerEl)
-}
+    localStorage.setItem("drinksearhHTML", JSON.stringify(mainContainerEl))
+    debugger;
+    location.replace("./drinksearch.html")
+}*/
 //creates the ingredient table HTML
 function createIngredientTable(data, mainColumnEl, i) {
     var tableContainerEl = createTableEl("div","columns m-0","")
@@ -491,7 +494,7 @@ function createIngredientTable(data, mainColumnEl, i) {
     return mainColumnEl
 }
 //creates the drink name and picture html
-function createDrinkEl(data, mainColumnEl) {
+/*function createDrinkEl(data, mainColumnEl) {
     var drinkContainerEl = createTableEl("div", "columns m-0","")
     var drinkPicColumnEl = createTableEl("div","column is-5","")
     var drinkPicEl = createTableEl("img","","")
@@ -502,38 +505,49 @@ function createDrinkEl(data, mainColumnEl) {
     drinkContainerEl.appendChild(drinkNameColumnEl)
     mainColumnEl.appendChild(drinkContainerEl)
     return mainColumnEl
-}
+}*/
 //creates the instructions html
-function createInstructionsEl(data, mainColumnEl) {
+/*function createInstructionsEl(data, mainColumnEl) {
     var instructionsContainerEl = createTableEl("div","columns m-0", "")
     var instructionsColumnEl = createTableEl("div", "column", data.drinks[i].strInstructions)
     instructionsContainerEl.appendChild(instructionsColumnEl)
     mainColumnEl.appendChild(instructionsContainerEl)
     return mainColumnEl
-}
+}*/
 //base function to crete an element and assign class and innerHTML
-function createTableEl(elementType, classList, text) {
+/*function createTableEl(elementType, classList, text) {
     var element = document.createElement(elementType)
     element.classList = classList
     element.innerHTML = text
     return element
-}3
+}*/
 
 
 
 //gets the results from the cocktail search
 function cocktailNameSearch(searchedDrink) {
-var cocktailApiURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
-fetch(cocktailApiURL).then(function(response) {
-    if (response.ok) {
-        response.json().then(function(data) {
-            console.log(data);
-            createResults(data)
-        })
-    }
-})
-
+    var cocktailApiSearchNameURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
+    fetch(cocktailApiSearchNameURL).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+                createResults(data)
+            })
+        }
+    })
 }
+function cocktailRandom() {
+    var cocktailApiRandomDrinkURL = "https:/www.thecocktaildb.com/api/json/v1/1/random.php"
+    fetch(cocktailApiRandomDrinkURL).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+                createResults(data)
+            })
+        }
+    })
+}
+
 function trackDrinking(event) {
     event.preventDefault();
     var userInfo = findUserInfo("#weight-tracking", "#gender-tracking")
@@ -561,14 +575,31 @@ function trackDrinkingDrinkAdd(event) {
     
 
 }
+function selectAPI() {
+    var saveArr = []
+    var searchedText = document.querySelector("#searched-text").value.trim()
+    var functionNeeded = "cocktailNameSearch"
+    saveArr.push(searchedText, functionNeeded)
+    console.log(saveArr)
+
+    localStorage.setItem("searched-name", JSON.stringify(saveArr))
+    location.replace("./drinksearch.html")
+    //cocktailNameSearch(searchedText)
+
+}
+
 function removeAddDrinkEl(event) {
     var removeEl = event.target.closest(".columns")
     removeEl.remove()
 }
 function loadPage() {
-    savedDrinkList = JSON.parse(localStorage.getItem("drinks")) 
+    savedDrinkList = JSON.parse(localStorage.getItem("drinks"))
+
 }
-loadPage()
+
+window.onload = loadPage()
+    
+  
 
 //event lsiteners for submit button and add drink button within modal
 if(document.querySelector("#submit-modal") === null) {
@@ -602,6 +633,13 @@ if(document.querySelector("#drinking") === null) {
 } else {
   document.querySelector("#drinking").addEventListener("click", trackDrinkingDrinkAdd)
 }
+
+if(document.querySelector("#drink-search-btn") === null) {
+    
+} else {
+  document.querySelector("#drink-search-btn").addEventListener("click", selectAPI)
+}
+
 
 function findDrinkRemoveBtn() {
     if(document.querySelector("#remove-drink-item") === null) {

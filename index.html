@@ -21,7 +21,7 @@
           <div class="navbar-start">
             <a href="./index.html" class="navbar-item"> Home</a>
             <a href="./index.html" class="navbar-item"> BAC</a>
-            <a href="./drinksearch.html" class="navbar-item"> Drink Finder</a>
+            <a href="./drinksearch.html" class="navbar-item">Cocktail Finder</a>
             <a href="./index.html" class="navbar-item"> Brewery Finder</a>
           </div>
         </div>
@@ -56,7 +56,25 @@
         </div>
         <div class="columns is-justify-content-center mt-3">
           <div class="column is-4 has-background-light has-text-centered">
-          search drink form goes here
+            <div class="field">
+                <label class="label">Cocktail Finder</label>
+                <label class="label">Search By</label>
+                <div class="control">
+                    <div class="select">
+                    <select>
+                        <option hidden>Select Search Option</option>
+                        <option>Drink Name</option>
+                        <option>Alcohol Type</option>
+                        <option>Random Drink</option>
+                    </select>
+                    </div>
+                </div>
+                <label class="label">Search</label>
+                <div class="control">
+                  <input class="input" id="searched-text" type="text" name="searched-text"placeholder="Text input">
+                </div>
+                <button class="button is-link mt-1" id="drink-search-btn">Submit</button>
+            </div>
         </div>
       </div>
       <div class="columns is-justify-content-center mt-3">
