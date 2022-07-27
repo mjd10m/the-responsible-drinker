@@ -21,7 +21,7 @@
           <div class="navbar-start">
             <a href="./index.html" class="navbar-item"> Home</a>
             <a href="./index.html" class="navbar-item"> BAC</a>
-            <a href="./drinksearch.html" class="navbar-item"> Drink Finder</a>
+            <a href="./drinkfinder.html" class="navbar-item"> Drink Finder</a>
             <a href="./index.html" class="navbar-item"> Brewery Finder</a>
           </div>
         </div>
@@ -279,27 +279,27 @@
         <div class="modal" id="">
             <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head has-background-danger-dark">
-                <p class="modal-card-title">Enter your information below</p>
+              <header class="modal-card-head has-background-white-bis">
+                <p class="modal-card-title is-size-2">Enter your information below</p>
                 <button class="delete" aria-label="close"></button>
               </header>
-              <section class="modal-card-body has-background-success-dark">
+              <section class="modal-card-body">
                 <div id="user-inputs-modal" class="field ">
                     <div class="columns">
                         <div class="column is-4">
-                            <label for="abv" class="label">ABV</label>
+                            <label for="abv" class="label has-text-black-bis has-text-weight-bold">ABV</label>
                             <div class="control">
                                 <input type="text" id="abv-tracking" name="abv" class="input">
                             </div>
                         </div>
                         <div class="column is-4">
-                            <label for="drinksize" class="label">Ounces</label>
+                            <label for="drinksize" class="label has-text-black-bis has-text-weight-bold">Ounces</label>
                             <div class="control">
                                 <input type="text" id="drinksize-tracking" name="drinksize" class="input">
                             </div>
                         </div>
                         <div class="column is-4">
-                            <label for="quantity" class="label">Quantity</label>
+                            <label for="quantity" class="label has-text-black-bis has-text-weight-bold">Quantity</label>
                             <div class="control">
                                 <input type="text" id="quantity-tracking" name="quantity" class="input">
                             </div>
@@ -312,7 +312,7 @@
                     </div>
                 </div>
               </section>
-              <footer class="modal-card-foot has-background-success-dark" id="tracking">
+              <footer class="modal-card-foot" id="tracking">
                 <button class="button is-link" id="submit-modal-tracking-adddrink">Submit</button>
                 <button class="button">Cancel</button>
               </footer>
@@ -325,21 +325,21 @@
         <div class="modal" id="modal-starting-drinking">
             <div class="modal-background"></div>
             <div class="modal-card">
-              <header class="modal-card-head has-background-danger-dark">
-                <p class="modal-card-title">Enter your information below</p>
+              <header class="modal-card-head has-background-white-bis">
+                <p class="modal-card-title is-size-2">Enter your information below</p>
                 <button class="delete" aria-label="close"></button>
               </header>
-              <section class="modal-card-body has-background-success-dark">
+              <section class="modal-card-body">
                 <div id="user-inputs-modal" class="field ">
                     <div class="columns">
                         <div class="column is-5">
-                            <label for="weight" class="label">Weight in Pounds:</label>
+                            <label for="weight" class="label has-text-black-bis has-text-weight-bold">Weight in Pounds:</label>
                             <div class="control">
                                 <input type="text" id="weight-tracking" name="weight" class="input">
                             </div>
                         </div>
                         <div class="column is-2">
-                            <label for="gender" class="label">Gender:</label>
+                            <label for="gender" class="label has-text-black-bis has-text-weight-bold">Gender:</label>
                             <div class="control">
                                 <select id="gender-tracking" name="gender" class="select">
                                     <option value=""></option>
@@ -351,7 +351,7 @@
                     </div>
                 </div>
               </section>
-              <footer class="modal-card-foot has-background-success-dark">
+              <footer class="modal-card-foot">
                 <button class="button is-link" id="submit-modal-tracking">Submit</button>
                 <button class="button">Cancel</button>
               </footer>
@@ -365,21 +365,21 @@
     <div class="modal" id="modal-already-drinking">
         <div class="modal-background"></div>
         <div class="modal-card">
-          <header class="modal-card-head has-background-danger-dark">
-            <p class="modal-card-title">Enter your information below</p>
+          <header class="modal-card-head has-background-white-bis">
+            <p class="modal-card-title is-size-2">Enter your information below</p>
             <button class="delete" aria-label="close"></button>
           </header>
-          <section class="modal-card-body has-background-success-dark">
+          <section class="modal-card-body">
             <div id="user-inputs-modal" class="field ">
                 <div class="columns">
                     <div class="column is-5">
-                        <label for="weight" class="label">Weight in Pounds:</label>
+                        <label for="weight" class="label has-text-black-bis has-text-weight-bold">Weight in Pounds:</label>
                         <div class="control">
                             <input type="text" id="weight" name="weight" class="input">
                         </div>
                     </div>
                     <div class="column is-2">
-                        <label for="gender" class="label">Gender:</label>
+                        <label for="gender" class="label has-text-black-bis has-text-weight-bold">Gender:</label>
                         <div class="control">
                             <select id="gender" name="gender" class="select">
                                 <option value=""></option>
@@ -389,7 +389,7 @@
                         </div>
                     </div>
                     <div class="column is-5">
-                        <label for="time" class="label">Time since first drink</label>
+                        <label for="time" class="label has-text-black-bis has-text-weight-bold">Time since first drink</label>
                         <div class="control">
                             <input type="text" id="time" name="time" class="input">
                         </div>
@@ -397,19 +397,19 @@
                 </div>
                 <div class="columns">
                     <div class="column is-4">
-                        <label for="abv" class="label">ABV</label>
+                        <label for="abv" class="label has-text-black-bis has-text-weight-bold">ABV</label>
                         <div class="control">
                             <input type="text" id="abv" name="abv" class="input">
                         </div>
                     </div>
                     <div class="column is-4">
-                        <label for="drinksize" class="label">Ounces</label>
+                        <label for="drinksize" class="label has-text-black-bis has-text-weight-bold">Ounces</label>
                         <div class="control">
                             <input type="text" id="drinksize" name="drinksize" class="input">
                         </div>
                     </div>
                     <div class="column is-4">
-                        <label for="quantity" class="label">Quantity</label>
+                        <label for="quantity" class="label has-text-black-bis has-text-weight-bold">Quantity</label>
                         <div class="control">
                             <input type="text" id="quantity" name="quantity" class="input">
                         </div>
@@ -422,7 +422,7 @@
                 </div> 
             </div>
           </section>
-          <footer class="modal-card-foot has-background-success-dark">
+          <footer class="modal-card-foot">
             <button class="button is-link" id="submit-modal">Submit</button>
             <button class="button">Cancel</button>
           </footer>
