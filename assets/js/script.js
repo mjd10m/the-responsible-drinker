@@ -551,7 +551,7 @@ function selectAPI() {
     console.log(saveArr)
 
     localStorage.setItem("searched-name", JSON.stringify(saveArr))
-    location.replace("./drinksearch.html")
+    location.replace("./drinkfinder.html")
     } else if (selectedApi === "Random Drink") {
         var saveArr = []
     var searchedText = document.querySelector("#drink-search-text").value.trim()
@@ -560,7 +560,7 @@ function selectAPI() {
     console.log(saveArr)
 
     localStorage.setItem("searched-name", JSON.stringify(saveArr))
-    location.replace("./drinksearch.html")
+    location.replace("./drinkfinder.html")
     }
 
 }
