@@ -17,47 +17,81 @@
         </div>
       </section>
       <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div id="navbarBasicExample" class="navbar-menu">
-          <div class="navbar-start">
+        <div id="navbarBasicExample" class="navbar-menu is-active">
             <a href="./index.html" class="navbar-item"> Home</a>
             <a href="./index.html" class="navbar-item"> BAC</a>
-            <a href="./drinkfinder.html" class="navbar-item"> Drink Finder</a>
+            <a href="./drinksearch.html" class="navbar-item">Cocktail Finder</a>
             <a href="./index.html" class="navbar-item"> Brewery Finder</a>
-          </div>
         </div>
       </nav>
       <!-- buttons-->
       <div class="container is-fluid">
         <div class="columns is-justify-content-center">
-          <div class="column is-6 has-background-light mt-5">
+          <div class="column is-4 has-background-light mt-5">
            <div class="columns">
             <div class="column">
                 <h2 class="has-text-centered" id="B-A-C">BAC Calculator</h2>
             </div>
            </div>
-           <div class="columns">
-            <div class=" column has-text-centered">
-              <div> BAC goes here</div>
+           <div class="columns is-justify-content-center">
+            <div class=" column is-2 has-text-centered">
+              <div class="is-sr-only has-background-success" id="current-bac"> 0.00</div>
             </div>
            </div>
-           <div class="columns">
+           <div class="columns is-flex-wrap-wrap">
             <div class="column has-text-centered">
-              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-already-drinking">Already Drinking?</button>
+              <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-already-drinking" id="already-drinking-btn">Already Drinking?</button>
+              <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-starting-add-drink" id="add-drink-btn">Add Drink</button>
+              <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-already-drinking" id="search-again-btn">Search Again</button>
             </div>
             <div class="column has-text-centered">
-              <button class="button m-auto is-justify-content-center is-flex is-flex-wrap-wrap is-small is-rounded is-size-6 has-text-weight-bold startedtheparty js-modal-trigger" data-modal="modal-starting-drinking" id="starting">Started the Party?</button>
+              <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-starting-drinking" id="start-drinking-btn">Starting the Party?</button>
+              <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking is-sr-only" data-modal="" id="reset-app-btn">Reset</button>
+              <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking is-sr-only" data-modal="" id="home-btn">Home</button>
             </div>
            </div>
           </div>
         </div>
         <div class="columns is-justify-content-center mt-3">
           <div class="column is-4 has-background-light has-text-centered">
-          search drink form goes here
+            <div class="field">
+                <label class="label">Cocktail Finder</label>
+                <label class="label">Search By</label>
+                <div class="control">
+                    <div class="select">
+                    <select id = "drink-api-select">
+                        <option hidden>Select Search Option</option>
+                        <option value="Drink Name">Drink Name</option>
+                        <option value="Random Drink">Random Drink</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="control mt-5">
+                  <input class="input is-sr-only" id="drink-search-text" type="text" name="searched-text"placeholder="Drink Name">
+                </div>
+                <button class="button is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking mt-5" id="drink-search-btn">Submit</button>
+            </div>
         </div>
       </div>
       <div class="columns is-justify-content-center mt-3">
         <div class="column is-4 has-background-light has-text-centered">
-          brewery search form goes here
+            <div class="field">
+                <label class="label">Brewery Finder</label>
+                <label class="label">Search By</label>
+                <div class="control">
+                    <div class="select">
+                    <select>
+                        <option hidden>Select Search Option</option>
+                        <option>Brewery Name</option>
+                        <option>Brewery Location</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="control mt-5">
+                  <input class="input" id="searched-text" type="text" name="searched-text"placeholder="Text input">
+                </div>
+                <button class="button is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking mt-5" id="drink-search-btn">Submit</button>
+            </div>
       </div>
     </div>
      <!-- buttons ends-->
@@ -276,7 +310,7 @@
         </div>-->
 
         <!--add drink modal for start drinking-->
-        <div class="modal" id="">
+        <div class="modal" id="modal-starting-add-drink">
             <div class="modal-background"></div>
             <div class="modal-card">
               <header class="modal-card-head has-background-white-bis">
@@ -289,19 +323,19 @@
                         <div class="column is-4">
                             <label for="abv" class="label has-text-black-bis has-text-weight-bold">ABV</label>
                             <div class="control">
-                                <input type="text" id="abv-tracking" name="abv" class="input">
+                                <input type="text" id="abv-tracking" name="abv"placeholder="ABV as a decimal" class="input">
                             </div>
                         </div>
                         <div class="column is-4">
                             <label for="drinksize" class="label has-text-black-bis has-text-weight-bold">Ounces</label>
                             <div class="control">
-                                <input type="text" id="drinksize-tracking" name="drinksize" class="input">
+                                <input type="text" id="drinksize-tracking" name="drinksize" placeholder="Ounces of Drink" class="input">
                             </div>
                         </div>
                         <div class="column is-4">
                             <label for="quantity" class="label has-text-black-bis has-text-weight-bold">Quantity</label>
                             <div class="control">
-                                <input type="text" id="quantity-tracking" name="quantity" class="input">
+                                <input type="text" id="quantity-tracking" name="quantity"placeholder="Number of Drinks" class="input">
                             </div>
                         </div>
                     </div>
@@ -335,7 +369,7 @@
                         <div class="column is-5">
                             <label for="weight" class="label has-text-black-bis has-text-weight-bold">Weight in Pounds:</label>
                             <div class="control">
-                                <input type="text" id="weight-tracking" name="weight" class="input">
+                                <input type="text" id="weight-tracking" name="weight" placeholder="in Pounds" class="input">
                             </div>
                         </div>
                         <div class="column is-2">
@@ -375,7 +409,7 @@
                     <div class="column is-5">
                         <label for="weight" class="label has-text-black-bis has-text-weight-bold">Weight in Pounds:</label>
                         <div class="control">
-                            <input type="text" id="weight" name="weight" class="input">
+                            <input type="text" id="weight" name="weight" placeholder="in Pounds" class="input">
                         </div>
                     </div>
                     <div class="column is-2">
@@ -391,7 +425,7 @@
                     <div class="column is-5">
                         <label for="time" class="label has-text-black-bis has-text-weight-bold">Time since first drink</label>
                         <div class="control">
-                            <input type="text" id="time" name="time" class="input">
+                            <input type="text" id="time" name="time" placeholder="in Hours" class="input">
                         </div>
                     </div>
                 </div>
@@ -399,19 +433,19 @@
                     <div class="column is-4">
                         <label for="abv" class="label has-text-black-bis has-text-weight-bold">ABV</label>
                         <div class="control">
-                            <input type="text" id="abv" name="abv" class="input">
+                            <input type="text" id="abv" name="abv" placeholder="ABV as a decimal" class="input">
                         </div>
                     </div>
                     <div class="column is-4">
                         <label for="drinksize" class="label has-text-black-bis has-text-weight-bold">Ounces</label>
                         <div class="control">
-                            <input type="text" id="drinksize" name="drinksize" class="input">
+                            <input type="text" id="drinksize" name="drinksize" placeholder="Ounces of Drink" class="input">
                         </div>
                     </div>
                     <div class="column is-4">
                         <label for="quantity" class="label has-text-black-bis has-text-weight-bold">Quantity</label>
                         <div class="control">
-                            <input type="text" id="quantity" name="quantity" class="input">
+                            <input type="text" id="quantity" name="quantity" placeholder="Number of Drinks" class="input">
                         </div>
                     </div>
                 </div>
