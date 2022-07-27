@@ -315,6 +315,14 @@ function calculateBAC(weightInPounds, gender, totalTimeInHours, drinkList) {
     roundedBac = Math.round(bac * 1000) / 1000
     console.log(roundedBac)
     bacValueEl.innerHTML = roundedBac
+    if (roundedBac <= .060) {
+        bacValueEl.classList.add("has-background-success")
+    } else if (roundedBac >.060 && roundedBac <= .13 ) {
+        bacValueEl.classList.add("has-background-warning")
+    } else { 
+        bacValueEl.classList.add("has-background-danger")
+    }
+
 }
 //converts abv and ounces to grams of alcohol
 function convertDrinkToGrams(drinkList) {
@@ -333,10 +341,8 @@ function alreadyDrinking(event) {
     event.preventDefault();
     var userInfo = findUserInfo("#weight", "#gender")
     var timeElapsed = document.querySelector("#time").value.trim()
-    //localStorage.setItem("user", JSON.stringify(userInfo))
     var parentElId = event.target.parentElement.id
     drinkList = findUserDrinks(parentElId, drinkList)
-    //localStorage.setItem("drinks", JSON.stringify(drinkList))
     calculateBAC(userInfo.weight, userInfo.gender, timeElapsed, drinkList)
     bacValueEl.classList.remove("is-sr-only")
     document.querySelector("#already-drinking-btn").classList.add("is-sr-only")
@@ -441,22 +447,6 @@ function findUserDrinks(id, drinkList) {
     }
     return drinkList
 }
-
-//takes data from fetch request and adds to webpage
-/*function createResults(data) {
-    var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
-    for(i = 0 ; i < data.drinks.length; i++){
-        var mainColumnEl = createTableEl("div","column is-4","")
-        createDrinkEl(data, mainColumnEl, i)
-        createInstructionsEl(data, mainColumnEl, i)
-        createIngredientTable(data, mainColumnEl, i)
-        mainContainerEl.appendChild(mainColumnEl)
-
-    }
-    localStorage.setItem("drinksearhHTML", JSON.stringify(mainContainerEl))
-    debugger;
-    location.replace("./drinksearch.html")
-}*/
 //creates the ingredient table HTML
 function createIngredientTable(data, mainColumnEl, i) {
     var tableContainerEl = createTableEl("div","columns m-0","")
@@ -493,37 +483,6 @@ function createIngredientTable(data, mainColumnEl, i) {
     mainColumnEl.appendChild(tableContainerEl)
     return mainColumnEl
 }
-//creates the drink name and picture html
-/*function createDrinkEl(data, mainColumnEl) {
-    var drinkContainerEl = createTableEl("div", "columns m-0","")
-    var drinkPicColumnEl = createTableEl("div","column is-5","")
-    var drinkPicEl = createTableEl("img","","")
-    drinkPicEl.src = data.drinks[i].strDrinkThumb
-    drinkPicColumnEl.appendChild(drinkPicEl)
-    var drinkNameColumnEl = createTableEl("div","column",data.drinks[i].strDrink)
-    drinkContainerEl.appendChild(drinkPicColumnEl)
-    drinkContainerEl.appendChild(drinkNameColumnEl)
-    mainColumnEl.appendChild(drinkContainerEl)
-    return mainColumnEl
-}*/
-//creates the instructions html
-/*function createInstructionsEl(data, mainColumnEl) {
-    var instructionsContainerEl = createTableEl("div","columns m-0", "")
-    var instructionsColumnEl = createTableEl("div", "column", data.drinks[i].strInstructions)
-    instructionsContainerEl.appendChild(instructionsColumnEl)
-    mainColumnEl.appendChild(instructionsContainerEl)
-    return mainColumnEl
-}*/
-//base function to crete an element and assign class and innerHTML
-/*function createTableEl(elementType, classList, text) {
-    var element = document.createElement(elementType)
-    element.classList = classList
-    element.innerHTML = text
-    return element
-}*/
-
-
-
 //gets the results from the cocktail search
 function cocktailNameSearch(searchedDrink) {
     var cocktailApiSearchNameURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
@@ -536,7 +495,7 @@ function cocktailNameSearch(searchedDrink) {
         }
     })
 }
-function cocktailRandom() {
+/*function cocktailRandom() {
     var cocktailApiRandomDrinkURL = "https:/www.thecocktaildb.com/api/json/v1/1/random.php"
     fetch(cocktailApiRandomDrinkURL).then(function(response) {
         if (response.ok) {
@@ -546,7 +505,7 @@ function cocktailRandom() {
             })
         }
     })
-}
+}*/
 
 function trackDrinking(event) {
     event.preventDefault();
@@ -554,6 +513,13 @@ function trackDrinking(event) {
     localStorage.setItem("user", JSON.stringify(userInfo))
     var timestamp = Date.now()
     localStorage.setItem("time", JSON.stringify(timestamp))
+    document.querySelector("#already-drinking-btn").classList.add("is-sr-only")
+    document.querySelector("#start-drinking-btn").classList.add("is-sr-only")
+    document.querySelector("#reset-app-btn").classList.remove("is-sr-only")
+    document.querySelector("#add-drink-btn").classList.remove("is-sr-only")
+    bacValueEl.classList.remove("is-sr-only")
+    document.querySelector("#reset-app-btn").addEventListener("click", resetTracker)
+
 
 }
 function trackDrinkingDrinkAdd(event) {
@@ -576,16 +542,31 @@ function trackDrinkingDrinkAdd(event) {
 
 }
 function selectAPI() {
+    var selectedApi = document.querySelector("#drink-api-select").value
+    if (selectedApi === "Drink Name"){
     var saveArr = []
-    var searchedText = document.querySelector("#searched-text").value.trim()
+    var searchedText = document.querySelector("#drink-search-text").value.trim()
     var functionNeeded = "cocktailNameSearch"
     saveArr.push(searchedText, functionNeeded)
     console.log(saveArr)
 
     localStorage.setItem("searched-name", JSON.stringify(saveArr))
     location.replace("./drinksearch.html")
-    //cocktailNameSearch(searchedText)
+    } else if (selectedApi === "Random Drink") {
+        var saveArr = []
+    var searchedText = document.querySelector("#drink-search-text").value.trim()
+    var functionNeeded = "cocktailRandom"
+    saveArr.push(searchedText, functionNeeded)
+    console.log(saveArr)
 
+    localStorage.setItem("searched-name", JSON.stringify(saveArr))
+    location.replace("./drinksearch.html")
+    }
+
+}
+function resetTracker() {
+    localStorage.clear()
+    location.reload()
 }
 
 function removeAddDrinkEl(event) {
@@ -593,8 +574,23 @@ function removeAddDrinkEl(event) {
     removeEl.remove()
 }
 function loadPage() {
-    savedDrinkList = JSON.parse(localStorage.getItem("drinks"))
-
+    storedDrinks = JSON.parse(localStorage.getItem("drinks"))
+    if (storedDrinks === null) {
+        savedDrinkList = []
+    } else {
+        savedDrinkList = storedDrinks
+    }
+    return savedDrinkList
+}
+function dropdownChanges() {
+    var el = document.querySelector("#drink-api-select")
+    if(el.value === "Drink Name") {
+        document.querySelector("#drink-search-text").classList.remove("is-sr-only")
+        document.querySelector("#drink-search-btn").innerHTML = "Submit"
+    } else if (el.value === "Random Drink") {
+        document.querySelector("#drink-search-text").classList.add("is-sr-only")
+        document.querySelector("#drink-search-btn").innerHTML = "Get Random Drink"
+    }
 }
 
 window.onload = loadPage()
@@ -614,6 +610,12 @@ if(document.querySelector("#add-drink") === null) {
     
     $close.addEventListener("click", addDrinkElement)
 })
+}
+
+if(document.querySelector("#drink-api-select") === null) {
+
+} else {
+  document.querySelector("#drink-api-select").onchange = dropdownChanges;
 }
 
 if(document.querySelector("#submit-modal-tracking") === null) {
@@ -638,6 +640,12 @@ if(document.querySelector("#drink-search-btn") === null) {
     
 } else {
   document.querySelector("#drink-search-btn").addEventListener("click", selectAPI)
+}
+
+if(document.querySelector("#reset-app-btn") === null) {
+    
+} else {
+  document.querySelector("#reset-app-btn").addEventListener("click", resetTracker)
 }
 
 
@@ -668,6 +676,9 @@ document.addEventListener('DOMContentLoaded', () => {
   
     function closeModal($el) {
       $el.classList.remove('is-active');
+      (document.querySelectorAll('input[type="text"]') || []).forEach((input) => {
+        input.value = ""
+        })
     }
   
     function closeAllModals() {
@@ -705,5 +716,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 });
-var test = document.querySelectorAll('.js-modal-trigger')
-console.log(test)

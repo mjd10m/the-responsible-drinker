@@ -1,21 +1,34 @@
 var savedDrinkList = []
 
-//gets the results from the cocktail search
+//get a random drink from Api
+function cocktailRandom() {
+    var cocktailApiRandomDrinkURL = "https:/www.thecocktaildb.com/api/json/v1/1/random.php"
+    fetch(cocktailApiRandomDrinkURL).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+                createResults(data,"columns m-0 is-justify-content-center")
+            })
+        }
+    })
+}
+
+//gets the results from api based the cocktail search
 function cocktailNameSearch(searchedDrink) {
     var cocktailApiSearchNameURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
     fetch(cocktailApiSearchNameURL).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
                 console.log(data);
-                createResults(data)
+                createResults(data, "columns m-0 is-flex-wrap-wrap")
             })
         }
     })
 }
 
 //takes data from fetch request and adds to webpage
-function createResults(data) {
-    var mainContainerEl = createTableEl("div","columns m-0 is-flex-wrap-wrap","")
+function createResults(data, containerClass) {
+    var mainContainerEl = createTableEl("div",containerClass,"")
     for(i = 0 ; i < data.drinks.length; i++){
         var mainColumnEl = createTableEl("div","column is-4","")
         createDrinkEl(data, mainColumnEl, i)
@@ -23,7 +36,6 @@ function createResults(data) {
         createIngredientTable(data, mainColumnEl, i)
         mainContainerEl.appendChild(mainColumnEl)
     }
-    debugger;
     document.querySelector("#test").appendChild(mainContainerEl)
 }
 
@@ -103,6 +115,8 @@ function loadPage() {
     console.log(instructionsArr)
     if (instructionsArr[1] === "cocktailNameSearch") {
         cocktailNameSearch(instructionsArr[0])
+    } else if (instructionsArr[1] === "cocktailRandom") {
+        cocktailRandom()
     }
 
 }
