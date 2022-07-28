@@ -542,28 +542,31 @@ function trackDrinkingDrinkAdd(event) {
 
 }
 function selectAPI() {
-    var selectedApi = document.querySelector("#drink-api-select").value
-    if (selectedApi === "Drink Name"){
-    var saveArr = []
-    var searchedText = document.querySelector("#drink-search-text").value.trim()
-    var functionNeeded = "cocktailNameSearch"
-    saveArr.push(searchedText, functionNeeded)
-    console.log(saveArr)
+    var selectedDrinkApi = document.querySelector("#drink-api-select").value
+    var selectedBrewApi = document.querySelector("#brewery-api-select").value
+    debugger;
+    if (selectedDrinkApi === "Drink Name"){
+        saveApiInfo(selectedDrinkApi, "#drink-search-text")
+    } else if (selectedDrinkApi === "Random Drink") {
+        saveApiInfo(selectedDrinkApi, "#drink-search-text")
+    } else if (selectedBrewApi === "Brewery Name"){
 
-    localStorage.setItem("searched-name", JSON.stringify(saveArr))
-    location.replace("./drinkfinder.html")
-    } else if (selectedApi === "Random Drink") {
-        var saveArr = []
-    var searchedText = document.querySelector("#drink-search-text").value.trim()
-    var functionNeeded = "cocktailRandom"
-    saveArr.push(searchedText, functionNeeded)
-    console.log(saveArr)
+    } else if (selectedBrewApi === "Brewery Location") {
 
-    localStorage.setItem("searched-name", JSON.stringify(saveArr))
-    location.replace("./drinkfinder.html")
     }
 
 }
+
+function saveApiInfo(functionName, id) {
+    debugger;
+    var saveArr = []
+    var searchedText = document.querySelector(id).value.trim()
+    var functionNeeded = functionName
+    saveArr.push(searchedText, functionNeeded)
+    localStorage.setItem("searched-input", JSON.stringify(saveArr))
+    location.replace("./drinkfinder.html")
+}
+
 function resetTracker() {
     localStorage.clear()
     location.reload()
@@ -583,14 +586,23 @@ function loadPage() {
     return savedDrinkList
 }
 function dropdownChanges() {
-    var el = document.querySelector("#drink-api-select")
-    if(el.value === "Drink Name") {
+    debugger;
+    var drinkEl = document.querySelector("#drink-api-select")
+    var breweryEl = document.querySelector("#brewery-api-select")
+    if(drinkEl.value === "Drink Name") {
         document.querySelector("#drink-search-text").classList.remove("is-sr-only")
-        document.querySelector("#drink-search-btn").innerHTML = "Submit"
-    } else if (el.value === "Random Drink") {
+        document.querySelector("#call-api").innerHTML = "Submit"
+    } else if (drinkEl.value === "Random Drink") {
         document.querySelector("#drink-search-text").classList.add("is-sr-only")
-        document.querySelector("#drink-search-btn").innerHTML = "Get Random Drink"
+        document.querySelector("#call-api").innerHTML = "Get Random Drink"
+    } else if (breweryEl.value === "Brewery Name") {
+        document.querySelector("#brewery-search-text").classList.remove("is-sr-only")
+        document.querySelector("#brewery-search-text").placeholder = "Enter name of Brewery"
+    } else if (breweryEl.value === "Brewery Location") {
+        document.querySelector("#brewery-search-text").classList.remove("is-sr-only")
+        document.querySelector("#brewery-search-text").placeholder = "Enter Location of Brewery"
     }
+    
 }
 
 window.onload = loadPage()
@@ -618,6 +630,12 @@ if(document.querySelector("#drink-api-select") === null) {
   document.querySelector("#drink-api-select").onchange = dropdownChanges;
 }
 
+if(document.querySelector("#brewery-api-select") === null) {
+
+} else {
+  document.querySelector("#brewery-api-select").onchange = dropdownChanges;
+}
+
 if(document.querySelector("#submit-modal-tracking") === null) {
 
 } else {
@@ -636,10 +654,10 @@ if(document.querySelector("#drinking") === null) {
   document.querySelector("#drinking").addEventListener("click", trackDrinkingDrinkAdd)
 }
 
-if(document.querySelector("#drink-search-btn") === null) {
+if(document.querySelector("#call-api") === null) {
     
 } else {
-  document.querySelector("#drink-search-btn").addEventListener("click", selectAPI)
+  document.querySelector("#call-api").addEventListener("click", selectAPI)
 }
 
 if(document.querySelector("#reset-app-btn") === null) {

@@ -1,4 +1,6 @@
-
+html {
+    height: 100%;
+}
 
 
 
@@ -20,14 +22,13 @@
     margin: 0;
     padding: 0;
 }
-  
+
 body {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     line-height: 1.5;
     background-color: var(--primary-color);
-    height: 100vh;
+    min-height: 100%;
 }
-
 
 .hero {
     top: 0;
@@ -68,10 +69,10 @@ body {
 
 .modal-card-foot {
     background-color:var(--tertiary-color);
-    border-top: #000000 2px solid;
+    border-top: #000000 3px solid;
 }
 .modal-card-head {
-    border-bottom: #000000 2px solid;
+    border-bottom: #000000 3px solid;
 } 
 
 .alreadyDrinking {

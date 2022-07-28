@@ -111,11 +111,11 @@ function createIngredientTable(data, mainColumnEl, i) {
 
 
 function loadPage() {
-    var instructionsArr = JSON.parse(localStorage.getItem("searched-name"))
+    var instructionsArr = JSON.parse(localStorage.getItem("searched-input"))
     console.log(instructionsArr)
-    if (instructionsArr[1] === "cocktailNameSearch") {
+    if (instructionsArr[1] === "Drink Name") {
         cocktailNameSearch(instructionsArr[0])
-    } else if (instructionsArr[1] === "cocktailRandom") {
+    } else if (instructionsArr[1] === "Random Drink") {
         cocktailRandom()
     }
 
