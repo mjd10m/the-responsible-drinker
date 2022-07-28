@@ -550,9 +550,9 @@ function selectAPI() {
     } else if (selectedDrinkApi === "Random Drink") {
         saveApiInfo(selectedDrinkApi, "#drink-search-text")
     } else if (selectedBrewApi === "Brewery Name"){
-
+        saveApiInfo(selectedBrewApi, "#brewery-search-text")
     } else if (selectedBrewApi === "Brewery Location") {
-
+        saveApiInfo(selectedBrewApi, "#brewery-search-text")
     }
 
 }

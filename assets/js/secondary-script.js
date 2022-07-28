@@ -117,6 +117,10 @@ function loadPage() {
         cocktailNameSearch(instructionsArr[0])
     } else if (instructionsArr[1] === "Random Drink") {
         cocktailRandom()
+    } else if (instructionsArr[1] === "Brewery Name") {
+        //function
+    } else if (instructionsArr[1] === "Brewery Location") {
+        //function
     }
 
 }
