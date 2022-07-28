@@ -157,7 +157,7 @@ var createBreweryContent= function(data, columnEl) {
         return columnEl
 
      }
-
+//checks for null items in an array
 var checkForNull = function(arr) {
     
     for (i = 0; i < arr.length; i++ ) {
@@ -170,8 +170,8 @@ var checkForNull = function(arr) {
     return arr;
 };
 
+//add dashes to make a standard telephone format
 var formatPhoneNumber = function(number) {
-    debugger;
     
     formattedNumber = number.slice(0, 3) + "-" + number.slice(3, 6) + "-" + number.slice(6, 10);
     
@@ -179,12 +179,11 @@ var formatPhoneNumber = function(number) {
     return formattedNumber;
 
 }
-
+//checks if telephone number is blank
 var checkPhoneNumber = function (number) {
     if (number === "--") {
         number = "No number provided."
     }
-    debugger;
     return number
 
 }
@@ -220,7 +219,7 @@ function breweryFinderApi(answer, idx) {
 
 
 
-
+//determines which api to call based on local storage when page is loaded
 function loadPage() {
     var instructionsArr = JSON.parse(localStorage.getItem("searched-input"))
     console.log(instructionsArr)
