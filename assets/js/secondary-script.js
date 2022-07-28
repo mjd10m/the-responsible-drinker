@@ -121,7 +121,9 @@ var createBreweryContent= function(data, columnEl) {
     var phone = arr[3]
     var website = arr[4]
     var address = street + " " + city + ", " + data.state;
-
+    phone = formatPhoneNumber(phone);
+    phone = checkPhoneNumber(phone);
+    
     
   
     //create ul element
@@ -136,13 +138,18 @@ var createBreweryContent= function(data, columnEl) {
      .attr('href','https://www.google.com/maps/place/' + address)
      .attr('target', '_blank')
      .text(address);
-     if(!(phone === ""))
-        var phoneEl = $('<li>')
-        .text("Phone: " + phone);
+      var phoneEl = $('<li>')
+     .text("Phone: " + phone);
+    if (website === "")
+    var websiteEl = $('<li>')
+     .text("No website provided.");
+    else
     var websiteEl = $('<a>')
-    .attr('href', website)
-    .attr('target', '_blank') 
-    .text(website);
+     .attr('href', website)
+     .attr('target', '_blank') 
+     .text(website);
+     
+
       //append list-items to ul
      $(breweryInfo).append(nameEl, addressEl, phoneEl, websiteEl);
      //append ul to html 
@@ -150,18 +157,36 @@ var createBreweryContent= function(data, columnEl) {
         return columnEl
 
      }
-
+//checks for null items in an array
 var checkForNull = function(arr) {
-
+    
     for (i = 0; i < arr.length; i++ ) {
     
         if ( arr[i] === null) {
-            arr[i] = ""
+        arr[i] = ""
         }
     
     }
     return arr;
 };
+
+//add dashes to make a standard telephone format
+var formatPhoneNumber = function(number) {
+    
+    formattedNumber = number.slice(0, 3) + "-" + number.slice(3, 6) + "-" + number.slice(6, 10);
+    
+    
+    return formattedNumber;
+
+}
+//checks if telephone number is blank
+var checkPhoneNumber = function (number) {
+    if (number === "--") {
+        number = "No number provided."
+    }
+    return number
+
+}
 
 // API call for beer brewing recipes
   
@@ -194,7 +219,7 @@ function breweryFinderApi(answer, idx) {
 
 
 
-
+//determines which api to call based on local storage when page is loaded
 function loadPage() {
     var instructionsArr = JSON.parse(localStorage.getItem("searched-input"))
     console.log(instructionsArr)

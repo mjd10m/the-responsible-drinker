@@ -24,7 +24,7 @@
             <a href="#brewery" class="navbar-item"> Brewery Finder</a>
         </div>
     </nav>
-      <!-- buttons-->
+      <!-- BAC container-->
     <div class="container is-fluid">
         <div class="columns is-justify-content-center" id="Calc">
             <div class="column is-4 has-background-light mt-5">
@@ -42,7 +42,7 @@
                 <div class="column has-text-centered">
                     <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-already-drinking" id="already-drinking-btn">Already Drinking?</button>
                     <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-starting-add-drink" id="add-drink-btn">Add Drink</button>
-                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-already-drinking" id="search-again-btn">Search Again</button>
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-already-drinking" id="search-again-btn">Calculate Again</button>
                 </div>
                 <div class="column has-text-centered">
                     <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-starting-drinking" id="start-drinking-btn">Starting the Party?</button>
@@ -52,6 +52,7 @@
            </div>
         </div>
     </div>
+    <!--container for the drink finder form-->
     <div class="columns is-justify-content-center mt-3" id="cocktail">
         <div class="column is-4 has-background-light has-text-centered">
             <div class="field" id="drink">
@@ -73,6 +74,7 @@
             </div>
         </div>
     </div>
+    <!--container for the brewery finder form-->
     <div class="columns is-justify-content-center mt-3 pb-3" id="brewery">
         <div class="column is-4 has-background-light has-text-centered">
             <div class="field" id="brew">
@@ -94,6 +96,7 @@
             </div>
         </div>
     </div>
+    <!--Modal to add a drink once the tracker has been started-->
     <div class="modal" id="modal-starting-add-drink">
         <div class="modal-background"></div>
         <div class="modal-card">

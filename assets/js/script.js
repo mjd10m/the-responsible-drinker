@@ -5,7 +5,6 @@ var bacValueEl = document.querySelector("#current-bac")
 
 //calculates BAC using the WideMark Formula
 function calculateBAC(weightInPounds, gender, totalTimeInHours, drinkList) {
-    debugger;
     if (gender == "Male"){
         var alcoholGrams = convertDrinkToGrams(drinkList)
         bac = ((alcoholGrams/((weightInPounds * 454) * .68)) * 100) - (totalTimeInHours * .015) 
@@ -60,6 +59,7 @@ function addDrinkElement(event) {
     var modal = elClicked.closest("#user-inputs-modal")
     columnContainerEl = document.createElement("div")
     columnContainerEl.classList = "columns"
+    columnContainerEl.id = "added-drink"
     var parentEl = elClicked.parentElement.id
     if (parentEl === "tracking") {
         buildlabelInputEl("ABV", "abv-tracking", "column is-4")
@@ -185,6 +185,7 @@ function createIngredientTable(data, mainColumnEl, i) {
     return mainColumnEl
 }
 
+//saves user info and switches out the buttons viewable
 function trackDrinking(event) {
     event.preventDefault();
     var userInfo = findUserInfo("#weight-tracking", "#gender-tracking")
@@ -200,6 +201,7 @@ function trackDrinking(event) {
 
 
 }
+//gets the users newly added drink and adds to drinkList arry and calls function to calculate BAC
 function trackDrinkingDrinkAdd(event) {
     event.preventDefault
     var userInfo = JSON.parse(localStorage.getItem("user"));
@@ -219,9 +221,10 @@ function trackDrinkingDrinkAdd(event) {
     
 
 }
+
+//determines which API to call
 function selectAPI(event) {
     var findForm = event.target.parentElement.id
-    debugger;
     if(findForm === "drink"){
         var selectedDrinkApi = document.querySelector("#drink-api-select").value
         var selectedBrewApi = ""
@@ -241,6 +244,7 @@ function selectAPI(event) {
 
 }
 
+//saves the selected API to local storage to be referenced on drinkfinder html
 function saveApiInfo(functionName, id) {
     var saveArr = []
     var searchedText = document.querySelector(id).value.trim()
@@ -250,15 +254,18 @@ function saveApiInfo(functionName, id) {
     location.replace("./drinkfinder.html")
 }
 
+//reset local storage info from tracking
 function resetTracker() {
     localStorage.clear()
     location.reload()
 }
-
+//removes an added drink from modal
 function removeAddDrinkEl(event) {
     var removeEl = event.target.closest(".columns")
     removeEl.remove()
 }
+
+//loads page to correct state depending on stored items
 function loadPage() {
     storedDrinks = JSON.parse(localStorage.getItem("drinks"))
     if (storedDrinks === null) {
@@ -282,6 +289,8 @@ function loadPage() {
     }
     return savedDrinkList
 }
+
+//handles all dynamic html changes when a particular drop down is selected
 function dropdownChanges(event) {
    var clickedEl = event.target.value
    console.log(event)
@@ -301,93 +310,6 @@ function dropdownChanges(event) {
     
 }
 
-// Find a brewery function start
-  
-  var checkForNull = function(arr) {
-    
-    for (i = 0; i < arr.length; i++ ) {
-      
-      if ( arr[i] === null) {
-        arr[i] = ""
-      }
-      
-    }
-    return arr;
-  };
-  
-  var createBreweryContent= function(data) {
-    
-    //set data we want to pull to their own variable
-    
-    var uncheckedArr = [data.street, data.city, data.name, data.phone, data.website_url]
-    
-    var arr = checkForNull(uncheckedArr);
-
-    var street = arr[0]
-    console.log(street);
-    var city = arr[1]
-    var name = arr[2]
-    var phone = arr[3]
-    var website = arr[4]
-    var address = street + " " + city + ", " + data.state;
-
-    
-  
-    //create ul element
-    var breweryInfo = $('<ul>')
-      .attr('id', 'brewery-info')
-      .addClass("column is-4 box");
-    // create list-items for each variable
-    var nameEl = $('<li>')
-     .text(name)
-     .addClass("is-size-3 is-underlined");
-    var addressEl = $('<a>')
-     .attr('href','https://www.google.com/maps/place/' + address)
-     .text(address);
-    var phoneEl = $('<li>')
-     .text("phone: " + phone);
-    var websiteEl = $('<a>')
-    .attr('href', website) 
-    .text(website);
-      //append list-items to ul
-     $(breweryInfo).append(nameEl, addressEl, phoneEl, websiteEl);
-     //append ul to html
-     $("#test").append(breweryInfo);
-
-
-     }
-    
-
-  
-  
-  
-  
-// API call for beer brewing recipes
-  
-  function breweryFinderApi(answer, idx) {
-
-      if (idx === 0) {
-        
-        var urlQuery = "https://api.openbrewerydb.org/breweries?by_city=" + answer + "&per_page=50"
-      }
-      else {
-        var urlQuery = "https://api.openbrewerydb.org/breweries?by_name=" + answer + "&per_page=1"
-
-      };
-    $.ajax({
-        url: urlQuery,
-        method: "GET"
-    })
-  
-    // store all of the retrieved data inside an object called "response"
-    .then(function (response) {
-      console.log(response);
-
-      for (var i = 0; i < response.length; i++ ) {
-        createBreweryContent(response[i]);
-      }
-    });
-  }
 
 window.onload = loadPage()
     
@@ -472,7 +394,7 @@ if(document.querySelector("#home-btn") === null) {
   })
 }
 
-
+// event listeners to handle opening and closing of modals
 document.addEventListener('DOMContentLoaded', () => {
     // Functions to open and close a modal
     function openModal($el) {
@@ -481,8 +403,13 @@ document.addEventListener('DOMContentLoaded', () => {
   
     function closeModal($el) {
       $el.classList.remove('is-active');
-      (document.querySelectorAll('input[type="text"]') || []).forEach((input) => {
-        input.value = ""
+        (document.querySelectorAll('input[type="text"]') || []).forEach((input) => {
+            input.value = ""
+        })
+        document.querySelector("#gender-tracking").selectedIndex = 0;
+        document.querySelector("#gender").selectedIndex = 0;
+        (document.querySelectorAll("#added-drink") || []).forEach((drink) => {
+            drink.remove()
         })
     }
   
