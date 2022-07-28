@@ -1,0 +1,37 @@
+:root {
+  --primary-color: #950101;
+  --secondary-color: #000000;
+  --tertiary-color: #ff0000;
+  --fourth-color: rgb(0, 85, 255);
+  --fifth-color: #890000;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  height: 100%;
+}
+
+body {
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  line-height: 1.5;
+  background-color: var(--primary-color);
+  min-height: 100%;
+}
+
+.hero {
+  top: 0;
+  background-image: url("../images/images.jpg");
+  background-size: auto;
+  background-attachment: fixed;
+  z-index: 9999;
+}
+
+h1,
+h2,
+p {
+  text-align: center;
+}
