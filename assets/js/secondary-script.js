@@ -30,7 +30,7 @@ function cocktailNameSearch(searchedDrink) {
 function createResults(data, containerClass) {
     var mainContainerEl = createTableEl("div",containerClass,"")
     for(i = 0 ; i < data.drinks.length; i++){
-        var mainColumnEl = createTableEl("div","column is-4","")
+        var mainColumnEl = createTableEl("div","column is-4 textcolor","")
         createDrinkEl(data, mainColumnEl, i)
         createInstructionsEl(data, mainColumnEl, i)
         createIngredientTable(data, mainColumnEl, i)
@@ -107,6 +107,91 @@ function createIngredientTable(data, mainColumnEl, i) {
     return mainColumnEl
 }
 
+var createBreweryContent= function(data, columnEl) {
+    //set data we want to pull to their own variable
+    
+    var uncheckedArr = [data.street, data.city, data.name, data.phone, data.website_url]
+    
+    var arr = checkForNull(uncheckedArr);
+
+    var street = arr[0]
+    console.log(street);
+    var city = arr[1]
+    var name = arr[2]
+    var phone = arr[3]
+    var website = arr[4]
+    var address = street + " " + city + ", " + data.state;
+
+    
+  
+    //create ul element
+    var breweryInfo = $('<ul>')
+      .attr('id', 'brewery-info')
+      .addClass("column is-3 box mx-2");
+    // create list-items for each variable
+    var nameEl = $('<li>')
+     .text(name)
+     .addClass("is-size-3 is-underlined");
+    var addressEl = $('<a>')
+     .attr('href','https://www.google.com/maps/place/' + address)
+     .attr('target', '_blank')
+     .text(address);
+     if(!(phone === ""))
+        var phoneEl = $('<li>')
+        .text("Phone: " + phone);
+    var websiteEl = $('<a>')
+    .attr('href', website)
+    .attr('target', '_blank') 
+    .text(website);
+      //append list-items to ul
+     $(breweryInfo).append(nameEl, addressEl, phoneEl, websiteEl);
+     //append ul to html 
+     columnEl.append(breweryInfo);
+        return columnEl
+
+     }
+
+var checkForNull = function(arr) {
+
+    for (i = 0; i < arr.length; i++ ) {
+    
+        if ( arr[i] === null) {
+            arr[i] = ""
+        }
+    
+    }
+    return arr;
+};
+
+// API call for beer brewing recipes
+  
+function breweryFinderApi(answer, idx) {
+
+    if (idx === 0) {
+      
+      var urlQuery = "https://api.openbrewerydb.org/breweries?by_city=" + answer + "&per_page=50"
+    }
+    else {
+      var urlQuery = "https://api.openbrewerydb.org/breweries?by_name=" + answer + "&per_page=1"
+
+    };
+  $.ajax({
+      url: urlQuery,
+      method: "GET"
+  })
+
+  // store all of the retrieved data inside an object called "response"
+  .then(function (response) {
+    console.log(response);
+    var columnEl = $('<div>').attr('id', 'row').addClass("columns is-flex-wrap-wrap mt-3 pb-3 is-justify-content-center")
+    console.log(columnEl)
+    for (var i = 0; i < response.length; i++ ) {
+      createBreweryContent(response[i], columnEl);
+    }
+    $('#test').append(columnEl)
+    });
+}
+
 
 
 
@@ -114,13 +199,21 @@ function loadPage() {
     var instructionsArr = JSON.parse(localStorage.getItem("searched-input"))
     console.log(instructionsArr)
     if (instructionsArr[1] === "Drink Name") {
+        var title = (instructionsArr[1] + ": " + instructionsArr[0]).toUpperCase()
+        document.querySelector("#result-title").innerHTML = title
         cocktailNameSearch(instructionsArr[0])
     } else if (instructionsArr[1] === "Random Drink") {
+        var title = (instructionsArr[1] + ": " + instructionsArr[0]).toUpperCase()
+        document.querySelector("#result-title").innerHTML = title
         cocktailRandom()
     } else if (instructionsArr[1] === "Brewery Name") {
-        //function
+        var title = (instructionsArr[1] + ": " + instructionsArr[0]).toUpperCase()
+        document.querySelector("#result-title").innerHTML = title
+        breweryFinderApi(instructionsArr[0], 1)
     } else if (instructionsArr[1] === "Brewery Location") {
-        //function
+        var title = (instructionsArr[1] + ": " + instructionsArr[0]).toUpperCase()
+        document.querySelector("#result-title").innerHTML = title
+        breweryFinderApi(instructionsArr[0], 0)
     }
 
 }
