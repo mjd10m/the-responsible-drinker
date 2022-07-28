@@ -4,11 +4,244 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>The Responsible Drinker</title>
 </head>
 <body>
-    
+    <section class="hero">
+        <div class="hero-body has-text-centered">
+          <h1 class="title is-justify-content-center is-flex is-flex-wrap-wrap is-capitalized is-size-1 has-text-weight-bold">
+            <a href="/index.html">The Responsible Drinker</a>
+          </h1>
+        </div>
+    </section>
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div id="navbarBasicExample" class="navbar-menu is-active">
+            <a href="./index.html" class="navbar-item"> Home</a>
+            <a href="#calc" class="navbar-item"> BAC</a>
+            <a href="#cocktail" class="navbar-item">Cocktail Finder</a>
+            <a href="#brewery" class="navbar-item"> Brewery Finder</a>
+        </div>
+    </nav>
+      <!-- buttons-->
+    <div class="container is-fluid">
+        <div class="columns is-justify-content-center" id="Calc">
+            <div class="column is-4 has-background-light mt-5">
+                <div class="columns">
+                    <div class="column">
+                        <h2 class="has-text-centered" id="B-A-C">BAC Calculator</h2>
+                    </div>
+                </div>
+                <div class="columns is-justify-content-center">
+                    <div class=" column is-2 has-text-centered">
+                        <div class="is-sr-only has-background-success" id="current-bac"> 0.00</div>
+                    </div>
+                </div>
+            <div class="columns is-flex-wrap-wrap">
+                <div class="column has-text-centered">
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-already-drinking" id="already-drinking-btn">Already Drinking?</button>
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-starting-add-drink" id="add-drink-btn">Add Drink</button>
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger is-sr-only" data-modal="modal-already-drinking" id="search-again-btn">Search Again</button>
+                </div>
+                <div class="column has-text-centered">
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking js-modal-trigger" data-modal="modal-starting-drinking" id="start-drinking-btn">Starting the Party?</button>
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking is-sr-only" data-modal="" id="reset-app-btn">Reset</button>
+                    <button class="button m-auto is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking is-sr-only" data-modal="" id="home-btn">Home</button>
+                </div>
+           </div>
+        </div>
+    </div>
+    <div class="columns is-justify-content-center mt-3" id="cocktail">
+        <div class="column is-4 has-background-light has-text-centered">
+            <div class="field" id="drink">
+                <label class="label">Cocktail Finder</label>
+                <label class="label">Search By</label>
+                <div class="control">
+                    <div class="select">
+                        <select id = "drink-api-select">
+                            <option hidden>Select Search Option</option>
+                            <option value="Drink Name">Drink Name</option>
+                            <option value="Random Drink">Random Drink</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control mt-5">
+                    <input class="input is-sr-only" id="drink-search-text" type="text" name="searched-text"placeholder="Drink Name">
+                </div>
+                <button class="button is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking mt-5" id="call-api">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="columns is-justify-content-center mt-3 pb-3" id="brewery">
+        <div class="column is-4 has-background-light has-text-centered">
+            <div class="field" id="brew">
+                <label class="label">Brewery Finder</label>
+                <label class="label">Search By</label>
+                <div class="control">
+                    <div class="select">
+                        <select id="brewery-api-select">
+                            <option hidden>Select Search Option</option>
+                            <option value="Brewery Name">Brewery Name</option>
+                            <option value="Brewery Location">Brewery Location</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="control mt-5">
+                    <input class="input is-sr-only" id="brewery-search-text" type="text" name="searched-text"placeholder="">
+                </div>
+                <button class="button is-small is-rounded is-size-6 has-text-weight-bold alreadyDrinking mt-5" id="call-api">Submit</button>
+            </div>
+        </div>
+    </div>
+    <div class="modal" id="modal-starting-add-drink">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head has-background-white-bis">
+            <p class="modal-card-title is-size-2">Enter your information below</p>
+            <button class="delete" aria-label="close"></button>
+            </header>
+            <section class="modal-card-body">
+            <div id="user-inputs-modal" class="field ">
+                <div class="columns">
+                    <div class="column is-4">
+                        <label for="abv" class="label has-text-black-bis has-text-weight-bold">ABV</label>
+                        <div class="control">
+                            <input type="text" id="abv-tracking" name="abv"placeholder="ABV as a decimal" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <label for="drinksize" class="label has-text-black-bis has-text-weight-bold">Ounces</label>
+                        <div class="control">
+                            <input type="text" id="drinksize-tracking" name="drinksize" placeholder="Ounces of Drink" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <label for="quantity" class="label has-text-black-bis has-text-weight-bold">Quantity</label>
+                        <div class="control">
+                            <input type="text" id="quantity-tracking" name="quantity"placeholder="Number of Drinks" class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns" id="add-btn">
+                    <div class="column" id="tracking">
+                        <button class="button is-link" id="add-drink">Add Drink</button>
+                    </div> 
+                </div>
+            </div>
+            </section>
+            <footer class="modal-card-foot" id="tracking">
+            <button class="button is-link" id="submit-modal-tracking-adddrink">Submit</button>
+            <button class="button">Cancel</button>
+            </footer>
+        </div>
+    </div>
+        <!--add user info for start drinking-->
+    <div class="modal" id="modal-starting-drinking">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+        <header class="modal-card-head has-background-white-bis">
+            <p class="modal-card-title is-size-2">Enter your information below</p>
+            <button class="delete" aria-label="close"></button>
+        </header>
+        <section class="modal-card-body">
+            <div id="user-inputs-modal" class="field ">
+                <div class="columns">
+                    <div class="column is-5">
+                        <label for="weight" class="label has-text-black-bis has-text-weight-bold">Weight in Pounds:</label>
+                        <div class="control">
+                            <input type="text" id="weight-tracking" name="weight" placeholder="in Pounds" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <label for="gender" class="label has-text-black-bis has-text-weight-bold">Gender:</label>
+                        <div class="control">
+                            <select id="gender-tracking" name="gender" class="select">
+                                <option value=""></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <button class="button is-link" id="submit-modal-tracking">Submit</button>
+            <button class="button">Cancel</button>
+        </footer>
+        </div>
+    </div>
+<!--Modal for already drinking when button is clicked-->
+    <div class="modal" id="modal-already-drinking">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+          <header class="modal-card-head has-background-white-bis">
+            <p class="modal-card-title is-size-2">Enter your information below</p>
+            <button class="delete" aria-label="close"></button>
+          </header>
+          <section class="modal-card-body">
+            <div id="user-inputs-modal" class="field ">
+                <div class="columns">
+                    <div class="column is-5">
+                        <label for="weight" class="label has-text-black-bis has-text-weight-bold">Weight in Pounds:</label>
+                        <div class="control">
+                            <input type="text" id="weight" name="weight" placeholder="in Pounds" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-2">
+                        <label for="gender" class="label has-text-black-bis has-text-weight-bold">Gender:</label>
+                        <div class="control">
+                            <select id="gender" name="gender" class="select">
+                                <option value=""></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="column is-5">
+                        <label for="time" class="label has-text-black-bis has-text-weight-bold">Time since first drink</label>
+                        <div class="control">
+                            <input type="text" id="time" name="time" placeholder="in Hours" class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column is-4">
+                        <label for="abv" class="label has-text-black-bis has-text-weight-bold">ABV</label>
+                        <div class="control">
+                            <input type="text" id="abv" name="abv" placeholder="ABV as a decimal" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <label for="drinksize" class="label has-text-black-bis has-text-weight-bold">Ounces</label>
+                        <div class="control">
+                            <input type="text" id="drinksize" name="drinksize" placeholder="Ounces of Drink" class="input">
+                        </div>
+                    </div>
+                    <div class="column is-4">
+                        <label for="quantity" class="label has-text-black-bis has-text-weight-bold">Quantity</label>
+                        <div class="control">
+                            <input type="text" id="quantity" name="quantity" placeholder="Number of Drinks" class="input">
+                        </div>
+                    </div>
+                </div>
+                <div class="columns" id="add-btn">
+                    <div class="column">
+                        <button class="button is-link" id="add-drink">Add Drink</button>
+                    </div> 
+                </div> 
+            </div>
+          </section>
+          <footer class="modal-card-foot">
+            <button class="button is-link" id="submit-modal">Submit</button>
+            <button class="button">Cancel</button>
+          </footer>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script src="./assets/js/script.js"></script>
 </body>
 </html>

@@ -1,0 +1,91 @@
+:root {
+    --primary-color: #950101;
+    --secondary-color: #000000;
+    --tertiary-color: #ff0000;
+    --fourth-color: rgb(0, 85, 255);
+    --fifth-color: #890000;
+
+  }
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+html {
+    height: 100%;
+}
+
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    line-height: 1.5;
+    background-color: var(--primary-color);
+    min-height: 100%;
+}
+
+.hero {
+    top: 0;
+    background-image: url("../images/images.jpg");
+    background-size:auto;
+    background-attachment: fixed;
+    z-index: 9999;
+}
+
+
+.title a{
+    color: var(--secondary-color);
+    text-shadow: 1.5px 1.5px var(--tertiary-color);
+}
+
+.populardrinks{
+    color: var(--secondary-color);
+    text-shadow: 1.5px 1.5px var(--tertiary-color);
+}
+
+.title a:hover {
+    color: var(--fourth-color);
+    text-shadow: 1.5px 1.5px var(--tertiary-color);
+}
+
+
+.container {
+    border-top: 4px solid var(--secondary-color);
+}
+
+.modal-card-title{
+    
+    color:var(--secondary-color);
+}
+.modal-card-body {
+    background-color:var(--tertiary-color);
+} 
+
+.modal-card-foot {
+    background-color:var(--tertiary-color);
+    border-top: #000000 3px solid;
+}
+.modal-card-head {
+    border-bottom: #000000 3px solid;
+} 
+
+.alreadyDrinking {
+    background-color: var(--tertiary-color);
+    color: var(--secondary-color);
+}
+.startedtheparty{
+    background-color: var(--tertiary-color);
+    color: var(--secondary-color);
+}
+.alreadyDrinking:hover{
+    background-color: var(--fourth-color);
+    color: var(--secondary-color);
+    text-shadow: 1.5px 1.5px var(--fifth-color);
+}
+.startedtheparty:hover{
+    background-color: var(--fourth-color);
+    color: var(--secondary-color);
+    text-shadow: 1.5px 1.5px var(--fifth-color);
+}
+.textcolor {
+    color: var(--secondary-color)
+}
