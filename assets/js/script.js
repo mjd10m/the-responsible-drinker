@@ -184,29 +184,6 @@ function createIngredientTable(data, mainColumnEl, i) {
     mainColumnEl.appendChild(tableContainerEl)
     return mainColumnEl
 }
-//gets the results from the cocktail search
-function cocktailNameSearch(searchedDrink) {
-    var cocktailApiSearchNameURL = "https:/www.thecocktaildb.com/api/json/v1/1/search.php?s=" + searchedDrink
-    fetch(cocktailApiSearchNameURL).then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                console.log(data);
-                createResults(data)
-            })
-        }
-    })
-}
-/*function cocktailRandom() {
-    var cocktailApiRandomDrinkURL = "https:/www.thecocktaildb.com/api/json/v1/1/random.php"
-    fetch(cocktailApiRandomDrinkURL).then(function(response) {
-        if (response.ok) {
-            response.json().then(function(data) {
-                console.log(data);
-                createResults(data)
-            })
-        }
-    })
-}*/
 
 function trackDrinking(event) {
     event.preventDefault();
