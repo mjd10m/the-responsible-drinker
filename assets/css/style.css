@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html {
     height: 100%;
 }
@@ -93,3 +94,8 @@ body {
     color: var(--secondary-color);
     text-shadow: 1.5px 1.5px var(--fifth-color);
 }
+=======
+.input {
+    background-color: lightblue;
+}
+>>>>>>> feature/justin
