@@ -2,7 +2,7 @@ var savedDrinkList = []
 
 //get a random drink from Api
 function cocktailRandom() {
-    var cocktailApiRandomDrinkURL = "https:/www.thecocktaildb.com/api/json/v2/9973533/random.php"
+    var cocktailApiRandomDrinkURL = "https://www.thecocktaildb.com/api/json/v2/9973533/random.php"
     fetch(cocktailApiRandomDrinkURL).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
@@ -15,7 +15,7 @@ function cocktailRandom() {
 
 //gets the results from api based the cocktail search
 function cocktailNameSearch(searchedDrink) {
-    var cocktailApiSearchNameURL = "https:/www.thecocktaildb.com/api/json/v2/9973533/search.php?s=" + searchedDrink
+    var cocktailApiSearchNameURL = "https://www.thecocktaildb.com/api/json/v2/9973533/search.php?s=" + searchedDrink
     fetch(cocktailApiSearchNameURL).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
